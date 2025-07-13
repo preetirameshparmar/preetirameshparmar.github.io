@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import './Projects.css';
 
 const Projects = () => {
-  const [title, setTitle] = useState('');
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     fetch('/projects.txt')
       .then(response => response.text())
       .then(text => {
-        const titleMatch = text.match(/\[Title\]\n(.*?)\n\n/);
-        const contentMatch = text.match(/\[Content\]\n(.*)/s);
-        if (titleMatch) setTitle(titleMatch[1]);
+        const contentMatch = text.match(/[\[]Content[\]]\n(.*)/s);
         if (contentMatch) {
           const entries = contentMatch[1].split(/\n\n(?=Name:)/);
           const parsedEntries = entries.map(entry => {
             const lines = entry.split('\n').filter(line => line.trim() !== '');
             return lines.reduce((acc, line) => {
               const [key, value] = line.split(': ');
-              acc[key.trim()] = value.trim();
+              acc[key.trim().toLowerCase().replace(' ', '_')] = value.trim();
               return acc;
             }, {});
           });
@@ -27,16 +25,22 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects">
-      <h2>{title}</h2>
-      {projects.map((project, index) => (
-        <div key={index} className="project-item">
-          <h3>{project['Name']}</h3>
-          <p><strong>Tech Stack:</strong> {project['Tech Stack']}</p>
-          <p>{project['Description']}</p>
-        </div>
-      ))}
-    </section>
+    <div className="projects-container">
+      <h2>Projects</h2>
+      <div className="projects-grid">
+        {projects.map((project, index) => (
+          <div className="project-card" key={index}>
+            <h3 className="project-name">{project.name}</h3>
+            <p className="project-description">{project.description}</p>
+            <div className="project-tech-stack">
+              {project.tech_stack?.split(', ').map((tech, i) => (
+                <span className="tech-item" key={i}>{tech}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

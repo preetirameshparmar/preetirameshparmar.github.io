@@ -1,0 +1,95 @@
+
+.personal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 4rem 2rem;
+  background: var(--hero-gradient);
+  min-height: 80vh;
+}
+
+.personal-image img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--background-paper);
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.personal-content {
+  max-width: 600px;
+  text-align: left;
+}
+
+.personal-name {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.personal-description {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin: 1rem 0 2rem;
+  line-height: 1.6;
+}
+
+.personal-contact {
+  display: flex;
+  gap: 1rem;
+}
+
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.contact-button:first-child {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.contact-button:last-child {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.contact-button i {
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .personal-container {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  .personal-content {
+    text-align: center;
+  }
+  .personal-name {
+    font-size: 3rem;
+  }
+  .personal-description {
+    font-size: 1rem;
+  }
+  .personal-contact {
+    justify-content: center;
+  }
+}
