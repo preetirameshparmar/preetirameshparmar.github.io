@@ -1,0 +1,7 @@
+[Title]
+Web Profiles
+
+[Content]
+LinkedIn - https://linkedin.com/in/hirenshah
+GitHub - https://github.com/hirenresume
+Portfolio - https://hiren.dev

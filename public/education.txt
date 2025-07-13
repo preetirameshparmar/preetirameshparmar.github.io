@@ -1,0 +1,9 @@
+[Title]
+Education
+
+[Content]
+Degree: B.E. in Computer Science
+Institution: University of Mumbai
+City: Mumbai, India
+Start: 2004
+End: 2008

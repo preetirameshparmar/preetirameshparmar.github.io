@@ -1,0 +1,7 @@
+[Title]
+Personal Information
+
+[Content]
+Hiren Shah
+Phone: +1 234 567 8901
+Email: hiren@example.com

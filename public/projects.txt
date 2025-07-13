@@ -1,0 +1,11 @@
+[Title]
+Projects
+
+[Content]
+Name: Vedic Astrology API
+Tech Stack: Java, Spring Boot, Swiss Ephemeris
+Description: A fully modular API system for Vedic planetary calculations.
+
+Name: Resume App
+Tech Stack: React, GitHub Pages
+Description: Resume rendered from `.txt` files.

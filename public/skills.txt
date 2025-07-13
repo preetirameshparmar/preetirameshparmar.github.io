@@ -1,0 +1,7 @@
+[Title]
+Skills
+
+[Content]
+Programming: Java, JavaScript, Python, Swift
+Tools: Git, Docker, Firebase
+Soft Skills: Leadership, Communication, Creativity

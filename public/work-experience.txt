@@ -1,0 +1,21 @@
+[Title]
+Work Experience
+
+[Content]
+Start: Jan 2006
+End: Jun 2012
+City: Mumbai, MH, India
+Company Name: Some Company
+On Field work: I did a lot of work
+
+Start: Jul 2015
+End: Oct 2016
+City: Toronto, ON, Canada
+Company Name: Some Company 3
+On Field work: I did a lot of work, but
+
+Start: Jul 2012
+End: Jun 2015
+City: Mumbai, MH, India
+Company Name: Some Company 2
+On Field work: I did a lot of work, but
