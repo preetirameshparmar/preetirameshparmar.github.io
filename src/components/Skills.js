@@ -10,7 +10,14 @@ const Skills = () => {
     fetch('/skills.txt')
       .then(response => response.text())
       .then(text => {
+        const titleMatch = text.match(/[\[]Title[\]]\n(.*?)\n\n/);
+        const orderMatch = text.match(/[\[]Order[\]]\n(.*?)\n\n/);
         const contentMatch = text.match(/[\[]Content[\]]\n(.*)/s);
+
+        const title = titleMatch ? titleMatch[1] : 'Skills';
+        const order = orderMatch ? parseInt(orderMatch[1], 10) : Infinity;
+        const isVisible = order >= 0;
+
         if (contentMatch) {
           const lines = contentMatch[1].split('\n').filter(line => line.trim() !== '');
           const parsedSkills = lines.reduce((acc, line) => {
@@ -22,6 +29,7 @@ const Skills = () => {
           }, {});
           setSkills(parsedSkills);
         }
+
       });
   }, []);
 

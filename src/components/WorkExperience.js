@@ -8,14 +8,23 @@ const WorkExperience = () => {
     fetch('/work-experience.txt')
       .then(response => response.text())
       .then(text => {
-        const contentMatch = text.match(/[\[]Content[\]]\n(.*)/s);
+        const titleMatch = text.match(/[Title]\n(.*?)\n\n/);
+        const orderMatch = text.match(/[Order]\n(.*?)\n\n/);
+        const contentMatch = text.match(/[Content]\n(.*)/s);
+
+        const title = titleMatch ? titleMatch[1] : 'Work Experience';
+        const order = orderMatch ? parseInt(orderMatch[1], 10) : Infinity;
+        const isVisible = order >= 0;
+
         if (contentMatch) {
           const entries = contentMatch[1].split(/\n\n(?=Start:)/);
           const parsedEntries = entries.map(entry => {
             const lines = entry.split('\n').filter(line => line.trim() !== '');
             return lines.reduce((acc, line) => {
               const [key, value] = line.split(': ');
-              acc[key.trim().toLowerCase().replace(/\s+/g, '_')] = value.trim();
+              if (typeof key === 'string' && typeof value === 'string') {
+                acc[key.trim().toLowerCase().replace(/\s+/g, '_')] = value.trim();
+              }
               return acc;
             }, {});
           });
@@ -23,6 +32,7 @@ const WorkExperience = () => {
           parsedEntries.sort((a, b) => new Date(b.start) - new Date(a.start));
           setExperiences(parsedEntries);
         }
+
       });
   }, []);
 

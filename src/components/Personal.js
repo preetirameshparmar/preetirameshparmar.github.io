@@ -8,36 +8,30 @@ const Personal = () => {
 
   useEffect(() => {
     fetch('/personal.txt')
-      .then(response => {
-        console.log('Fetch response for personal.txt:', response);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-      })
+      .then(response => response.text())
       .then(text => {
-        console.log('Raw text from personal.txt:', text);
-        const contentMatch = text.match(/[\[]Content[\]]\n(.*)/s);
-        console.log('Content match result:', contentMatch);
+        const contentMatch = text.match(/[Content]\n(.*)/s);
         if (contentMatch) {
           const content = contentMatch[1];
-          const nameMatch = content.match(/^(.*?)\n/);
+          const nameMatch = content.match(/Name: (.*?)/);
+          console.log("Name Match" + nameMatch);
           const name = nameMatch ? nameMatch[1].trim() : '';
+          console.log("Name" + name);
           const phoneMatch = content.match(/Phone: (.*)/);
+          console.log("Phone Match" + phoneMatch);
           const phone = phoneMatch ? phoneMatch[1].trim() : '';
+          console.log("Phone" + phone);
           const emailMatch = content.match(/Email: (.*)/);
+          console.log("Email Match" + emailMatch);
           const email = emailMatch ? emailMatch[1].trim() : '';
+          console.log("Email" + email);
           const quoteMatch = content.match(/Quote: (.*)/);
+          console.log("Quote Match" + quoteMatch);
           const quote = quoteMatch ? quoteMatch[1].trim() : '';
+          console.log("Quote" + quote);
 
           setPersonalInfo({ name, phone, email, quote });
-          console.log('Parsed personal info:', { name, phone, email, quote });
-        } else {
-          console.log('No [Content] section found in personal.txt');
         }
-      })
-      .catch(error => {
-        console.error('Error fetching or parsing personal.txt:', error);
       });
   }, []);
 
