@@ -1,9 +1,18 @@
 [Title]
 Education
 
+[Order]
+1
+
 [Content]
-Degree: B.E. in Computer Science
+Degree: Bachelors in Mass Communication
 Institution: University of Mumbai
 City: Mumbai, India
-Start: 2004
-End: 2008
+Start: 2007
+End: 2011
+
+Degree: Masters in Mass Communication
+Institution: Conestoga College
+City: Toronto, Canada
+Start: 2023
+End: 2025

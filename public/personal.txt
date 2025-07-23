@@ -2,7 +2,7 @@
 Personal Information
 
 [Content]
-Hiren Shah
-Phone: +1 234 567 8901
-Email: hiren@example.com
+Name: Preeti Parmar
+Phone: +1 123 456 7890
+Email: preeti.parmar@example.com
 Quote: A passionate and driven professional with a knack for creating elegant and efficient solutions.
