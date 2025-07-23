@@ -1,7 +1,7 @@
 {
   "name": "preetirameshparmar.github.io",
   "version": "0.1.0",
-    "homepage": "https://preetirameshparmar.github.io",
+  "homepage": "https://preetirameshparmar.github.io",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
