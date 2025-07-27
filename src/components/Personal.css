@@ -126,12 +126,15 @@
     padding: 0 2rem;
     max-width: 500px;
     margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
   }
   .contact-button {
-    width: 100%;
+    width: calc(100% - 0px);
     max-width: none;
     justify-content: center;
     padding: 12px 20px;
+    box-sizing: border-box;
   }
 }
 
@@ -153,15 +156,21 @@
     line-height: 1.5;
     padding: 0 1.5rem;
     max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .personal-contact {
     padding: 0 1.5rem;
     max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
   }
   .contact-button {
     padding: 11px 18px;
     font-size: 0.9rem;
     width: 100%;
     max-width: none;
+    box-sizing: border-box;
   }
 }
