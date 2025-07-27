@@ -8,8 +8,8 @@ const WorkExperience = () => {
     fetch('/work-experience.txt')
       .then(response => response.text())
       .then(text => {
-        const titleMatch = text.match(/[\[]Title[\]]\n(.*?)\n\n/);
-        const contentMatch = text.match(/[\[]Content[\]]\n(.*)/s);
+        const titleMatch = text.match(/\[Title\]\n(.*?)\n\n/);
+        const contentMatch = text.match(/\[Content\]\n(.*)/s);
         if (titleMatch) setTitle(titleMatch[1]);
         if (contentMatch) {
           const entries = contentMatch[1].split(/\n\n(?=Start:)/);
