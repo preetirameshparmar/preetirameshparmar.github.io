@@ -2,7 +2,7 @@
 Education
 
 [Order]
-1
+2
 
 [Content]
 Degree: Bachelors in Mass Communication
