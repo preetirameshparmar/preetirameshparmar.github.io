@@ -72,17 +72,66 @@ h2 {
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+  .app-header {
+    padding: 1rem 1.5rem;
+  }
+  .app-nav a {
+    margin: 0 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .app-header {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
   .app-nav {
-    display: none; /* Simple hide for now, can be replaced with hamburger */
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .app-nav a {
+    margin: 0;
+    padding: 0.5rem 1rem;
+    background-color: var(--background);
+    border-radius: 20px;
+    font-size: 0.85rem;
   }
   .logo h2 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
   h2 {
     font-size: 2rem;
   }
   section {
-    padding: 3rem 1rem;
+    padding: 2.5rem 1rem;
+  }
+  main {
+    padding-top: 120px; /* Account for taller header on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 0.75rem;
+  }
+  .logo h2 {
+    font-size: 1.1rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  section {
+    padding: 2rem 0.75rem;
+  }
+  .app-nav a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
   }
 }

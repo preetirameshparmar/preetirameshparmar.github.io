@@ -91,7 +91,19 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+  .experience-container {
+    padding: 3rem 1.5rem;
+  }
+  .timeline {
+    max-width: 800px;
+  }
+}
+
 @media (max-width: 768px) {
+  .experience-container {
+    padding: 2.5rem 1rem;
+  }
   .timeline::before {
     left: 18px;
   }
@@ -108,5 +120,39 @@
   .timeline-item:nth-child(odd) .timeline-dot,
   .timeline-item:nth-child(even) .timeline-dot {
     left: 10px;
+  }
+  .timeline-content {
+    padding: 1.25rem;
+  }
+  .company-name {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-container {
+    padding: 2rem 0.75rem;
+  }
+  .timeline-item {
+    padding-left: 2.5rem;
+  }
+  .timeline::before {
+    left: 15px;
+  }
+  .timeline-item:nth-child(odd) .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot {
+    left: 7px;
+  }
+  .timeline-content {
+    padding: 1rem;
+  }
+  .company-name {
+    font-size: 1.2rem;
+  }
+  .job-duration {
+    font-size: 0.85rem;
+  }
+  .job-description {
+    font-size: 0.9rem;
   }
 }
