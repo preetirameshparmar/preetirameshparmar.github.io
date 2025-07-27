@@ -1,0 +1,51 @@
+
+.education-container {
+  padding: 4rem 2rem;
+  background-color: var(--background);
+}
+
+.education-card {
+  background-color: var(--background-paper);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-elevation-low);
+  max-width: 600px;
+  margin: 2rem auto;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.education-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.degree {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.institution {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.timeline {
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .education-container {
+    padding: 3rem 1rem;
+  }
+  .degree {
+    font-size: 1.5rem;
+  }
+  .institution {
+    font-size: 1rem;
+  }
+}

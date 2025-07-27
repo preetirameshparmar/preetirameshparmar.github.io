@@ -1,6 +1,9 @@
 [Title]
 Work Experience
 
+[Order]
+2
+
 [Content]
 Start: Jan 2006
 End: Jun 2012

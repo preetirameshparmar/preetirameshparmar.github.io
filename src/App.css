@@ -1,60 +1,63 @@
-:root {
-  --background-color: #fff;
-  --text-color: #333;
-  --header-bg: #f8f9fa;
-  --border-color: #dee2e6;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  margin: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.dark-mode {
-  --background-color: #333;
-  --text-color: #fff;
-  --header-bg: #444;
-  --border-color: #555;
-}
 
 .App {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 20px;
+  text-align: center;
 }
 
-header {
-  position: sticky;
+.app-header {
+  position: fixed;
   top: 0;
-  background-color: var(--header-bg);
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--border-color);
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--background-paper);
+  box-shadow: var(--shadow-elevation-low);
   z-index: 1000;
+  transition: background-color 300ms ease;
 }
 
-header h1 {
+.logo h2 {
   margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
 }
 
-header nav a {
-  margin: 0 15px;
-  color: var(--text-color);
+.app-nav a {
+  margin: 0 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-light);
   text-decoration: none;
+  transition: color 300ms ease;
 }
 
-header nav a:hover {
-  text-decoration: underline;
+.app-nav a:hover {
+  color: var(--primary-color);
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  transition: color 300ms ease;
+}
+
+.theme-toggle:hover {
+  color: var(--primary-color);
+}
+
+main {
+  padding-top: 80px; 
 }
 
 section {
-  padding: 20px;
-  border-bottom: 1px solid var(--border-color);
+  padding: 4rem 2rem;
+  border-bottom: 1px solid var(--shadow-elevation-low);
 }
 
 section:last-child {
@@ -62,24 +65,24 @@ section:last-child {
 }
 
 h2 {
-  margin-top: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-.experience-item, .project-item {
-    margin-bottom: 20px;
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
+  .app-nav {
+    display: none; /* Simple hide for now, can be replaced with hamburger */
   }
-
-  header nav {
-    margin-top: 10px;
+  .logo h2 {
+    font-size: 1.2rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  section {
+    padding: 3rem 1rem;
   }
 }

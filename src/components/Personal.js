@@ -1,40 +1,62 @@
+
+
 import React, { useState, useEffect } from 'react';
+import './Personal.css';
 
 const Personal = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState({});
+  const [personalInfo, setPersonalInfo] = useState({ name: '', phone: '', email: '' , quote: ''});
 
   useEffect(() => {
     fetch('/personal.txt')
       .then(response => response.text())
       .then(text => {
-        const titleMatch = text.match(/\[Title\]\n(.*?)\n\n/);
-        const contentMatch = text.match(/\[Content\]\n(.*)/s);
-        if (titleMatch) setTitle(titleMatch[1]);
+        const contentMatch = text.match(/[Content]\n(.*)/s);
         if (contentMatch) {
-          const lines = contentMatch[1].split('\n').filter(line => line.trim() !== '');
-          const parsedContent = lines.reduce((acc, line) => {
-            const [key, value] = line.split(': ');
-            if (key && value) {
-              acc[key.trim()] = value.trim();
-            } else {
-              acc['Name'] = key;
-            }
-            return acc;
-          }, {});
-          setContent(parsedContent);
+          const content = contentMatch[1];
+          const nameMatch = content.match(/Name: (.*?)/);
+          console.log("Name Match" + nameMatch);
+          const name = nameMatch ? nameMatch[1].trim() : '';
+          console.log("Name" + name);
+          const phoneMatch = content.match(/Phone: (.*)/);
+          console.log("Phone Match" + phoneMatch);
+          const phone = phoneMatch ? phoneMatch[1].trim() : '';
+          console.log("Phone" + phone);
+          const emailMatch = content.match(/Email: (.*)/);
+          console.log("Email Match" + emailMatch);
+          const email = emailMatch ? emailMatch[1].trim() : '';
+          console.log("Email" + email);
+          const quoteMatch = content.match(/Quote: (.*)/);
+          console.log("Quote Match" + quoteMatch);
+          const quote = quoteMatch ? quoteMatch[1].trim() : '';
+          console.log("Quote" + quote);
+
+          setPersonalInfo({ name, phone, email, quote });
         }
       });
   }, []);
 
   return (
-    <section id="personal">
-      <h2>{title}</h2>
-      <p><strong>Name:</strong> {content['Name']}</p>
-      <p><strong>Phone:</strong> {content['Phone']}</p>
-      <p><strong>Email:</strong> <a href={`mailto:${content['Email']}`}>{content['Email']}</a></p>
-    </section>
+    <div className="personal-container">
+      <div className="personal-image">
+        <img src="/logo512.png" alt="Profile" />
+      </div>
+      <div className="personal-content">
+        <h1 className="personal-name">{personalInfo.name}</h1>
+        <p className="personal-description">
+          {personalInfo.quote}
+        </p>
+        <div className="personal-contact">
+          <a href={`mailto:${personalInfo.email}`} className="contact-button">
+            <i className="fas fa-envelope"></i> {personalInfo.email}
+          </a>
+          <a href={`tel:${personalInfo.phone}`} className="contact-button">
+            <i className="fas fa-phone"></i> {personalInfo.phone}
+          </a>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default Personal;
+

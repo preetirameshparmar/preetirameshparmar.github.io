@@ -1,7 +1,9 @@
 [Title]
 Web Profiles
 
+[Order]
+3
+
 [Content]
-LinkedIn - https://linkedin.com/in/hirenshah
-GitHub - https://github.com/hirenresume
-Portfolio - https://hiren.dev
+LinkedIn - https://linkedin.com/in/preetirparmar
+Portfolio - https://preetirameshparmar.github.io
