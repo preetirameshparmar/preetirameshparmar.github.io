@@ -74,22 +74,103 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+  .personal-container {
+    gap: 3rem;
+    padding: 3rem 1.5rem;
+  }
+  .personal-image img {
+    width: 220px;
+    height: 220px;
+  }
+  .personal-name {
+    font-size: 3.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .personal-container {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     text-align: center;
+    padding: 1.5rem 1rem 2rem;
+    min-height: calc(100vh - 100px);
+    justify-content: center;
   }
   .personal-content {
     text-align: center;
+    max-width: 100%;
+  }
+  .personal-image img {
+    width: 200px;
+    height: 200px;
   }
   .personal-name {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
   }
   .personal-description {
     font-size: 1rem;
+    margin: 1rem 0 1.5rem;
+    line-height: 1.5;
+    padding: 0 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .personal-contact {
     justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .contact-button {
+    width: calc(100% - 0px);
+    max-width: none;
+    justify-content: center;
+    padding: 12px 20px;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .personal-container {
+    padding: 1rem 0.75rem 1.5rem;
+    gap: 1.25rem;
+    min-height: calc(100vh - 100px);
+  }
+  .personal-image img {
+    width: 170px;
+    height: 170px;
+  }
+  .personal-name {
+    font-size: 2.2rem;
+  }
+  .personal-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 0 1.5rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .personal-contact {
+    padding: 0 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .contact-button {
+    padding: 11px 18px;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
   }
 }

@@ -52,7 +52,9 @@
 }
 
 main {
-  padding-top: 80px; 
+  padding-top: 80px;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 section {
@@ -72,9 +74,37 @@ h2 {
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+  .app-header {
+    padding: 1rem 1.5rem;
+  }
+  .app-nav a {
+    margin: 0 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .app-header {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
   .app-nav {
-    display: none; /* Simple hide for now, can be replaced with hamburger */
+    order: 3;
+    width: 100%;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .app-nav a {
+    margin: 0;
+    padding: 0.4rem 0.9rem;
+    background-color: var(--background);
+    border-radius: 20px;
+    font-size: 0.8rem;
   }
   .logo h2 {
     font-size: 1.2rem;
@@ -83,6 +113,42 @@ h2 {
     font-size: 2rem;
   }
   section {
-    padding: 3rem 1rem;
+    padding: 1.5rem 1rem;
+  }
+  section:first-child {
+    padding: 0; /* Personal section handles its own padding */
+  }
+  main {
+    padding-top: 100px; /* Reduced header height */
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 0.6rem 0.75rem;
+    gap: 0.5rem;
+  }
+  .app-nav {
+    margin-top: 0.4rem;
+    gap: 0.6rem;
+  }
+  .app-nav a {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  .logo h2 {
+    font-size: 1.1rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  section {
+    padding: 1.25rem 0.75rem;
+  }
+  section:first-child {
+    padding: 0; /* Personal section handles its own padding */
+  }
+  main {
+    padding-top: 95px;
   }
 }
