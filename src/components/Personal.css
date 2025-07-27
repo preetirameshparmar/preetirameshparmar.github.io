@@ -91,57 +91,69 @@
 @media (max-width: 768px) {
   .personal-container {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     text-align: center;
-    padding: 2.5rem 1rem;
-    min-height: 70vh;
+    padding: 1.5rem 1rem 2rem;
+    min-height: calc(100vh - 100px);
+    justify-content: center;
   }
   .personal-content {
     text-align: center;
     max-width: 100%;
   }
   .personal-image img {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
   }
   .personal-name {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     line-height: 1.1;
+    margin-bottom: 0.5rem;
   }
   .personal-description {
-    font-size: 1.1rem;
-    margin: 1.5rem 0;
+    font-size: 1rem;
+    margin: 1rem 0 1.5rem;
+    line-height: 1.5;
+    padding: 0 1rem;
   }
   .personal-contact {
     justify-content: center;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
+    padding: 0 1rem;
   }
   .contact-button {
     width: 100%;
-    max-width: 280px;
+    max-width: 300px;
     justify-content: center;
+    padding: 12px 20px;
   }
 }
 
 @media (max-width: 480px) {
   .personal-container {
-    padding: 2rem 0.75rem;
-    gap: 1.5rem;
+    padding: 1rem 0.75rem 1.5rem;
+    gap: 1.25rem;
+    min-height: calc(100vh - 100px);
   }
   .personal-image img {
-    width: 150px;
-    height: 150px;
+    width: 170px;
+    height: 170px;
   }
   .personal-name {
     font-size: 2.2rem;
   }
   .personal-description {
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.5;
+    padding: 0 0.5rem;
+  }
+  .personal-contact {
+    padding: 0 0.5rem;
   }
   .contact-button {
-    padding: 10px 20px;
+    padding: 11px 18px;
     font-size: 0.9rem;
+    max-width: 280px;
   }
 }
