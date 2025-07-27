@@ -8,13 +8,8 @@ const WorkExperience = () => {
     fetch('/work-experience.txt')
       .then(response => response.text())
       .then(text => {
-        const titleMatch = text.match(/[Title]\n(.*?)\n\n/);
-        const orderMatch = text.match(/[Order]\n(.*?)\n\n/);
-        const contentMatch = text.match(/[Content]\n(.*)/s);
+        const contentMatch = text.match(/\[Content\]\n(.*)/s);
 
-        const title = titleMatch ? titleMatch[1] : 'Work Experience';
-        const order = orderMatch ? parseInt(orderMatch[1], 10) : Infinity;
-        const isVisible = order >= 0;
 
         if (contentMatch) {
           const entries = contentMatch[1].split(/\n\n(?=Start:)/);

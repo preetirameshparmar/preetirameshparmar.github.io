@@ -8,18 +8,10 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import './App.css';
 
-const componentMap = {
-  personal: Personal,
-  skills: Skills,
-  projects: Projects,
-  workExperience: WorkExperience,
-  education: Education,
-  webLinks: WebLinks,
-};
 
 function App() {
   const [theme, setTheme] = useState('light');
-  const [sections, setSections] = useState({
+  const [sections] = useState({
     personal: { id: 'personal', title: 'Home', order: -Infinity, isVisible: true, component: Personal },
     skills: { id: 'skills', title: 'Skills', order: 3, isVisible: true, component: Skills },
     projects: { id: 'projects', title: 'Projects', order: 5, isVisible: true, component: Projects },
@@ -36,12 +28,6 @@ function App() {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  const handleSectionLoad = (id, sectionData) => {
-    setSections(prevSections => ({
-      ...prevSections,
-      [id]: { ...sectionData, id, component: componentMap[id] },
-    }));
-  };
 
   const sortedSections = Object.values(sections)
     .filter(sec => sec.isVisible)
