@@ -102,15 +102,20 @@
 
 @media (max-width: 768px) {
   .experience-container {
-    padding: 2.5rem 1rem;
+    padding: 1.5rem 1rem;
+  }
+  .timeline {
+    padding: 1rem 0;
+    max-width: 100%;
+    overflow-x: hidden;
   }
   .timeline::before {
-    left: 18px;
+    left: 16px;
   }
   .timeline-item {
     width: 100%;
-    padding-left: 3rem;
-    padding-right: 1rem;
+    padding-left: 2.5rem;
+    padding-right: 0.5rem;
     text-align: left;
   }
   .timeline-item:nth-child(odd),
@@ -119,10 +124,13 @@
   }
   .timeline-item:nth-child(odd) .timeline-dot,
   .timeline-item:nth-child(even) .timeline-dot {
-    left: 10px;
+    left: 8px;
   }
   .timeline-content {
     padding: 1.25rem;
+    margin-right: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   .company-name {
     font-size: 1.3rem;
@@ -131,28 +139,35 @@
 
 @media (max-width: 480px) {
   .experience-container {
-    padding: 2rem 0.75rem;
+    padding: 1.25rem 0.75rem;
+  }
+  .timeline {
+    padding: 0.75rem 0;
   }
   .timeline-item {
-    padding-left: 2.5rem;
+    padding-left: 2rem;
+    padding-right: 0.25rem;
   }
   .timeline::before {
-    left: 15px;
+    left: 12px;
   }
   .timeline-item:nth-child(odd) .timeline-dot,
   .timeline-item:nth-child(even) .timeline-dot {
-    left: 7px;
+    left: 4px;
   }
   .timeline-content {
     padding: 1rem;
+    width: 100%;
   }
   .company-name {
     font-size: 1.2rem;
+    word-wrap: break-word;
   }
   .job-duration {
     font-size: 0.85rem;
   }
   .job-description {
     font-size: 0.9rem;
+    word-wrap: break-word;
   }
 }

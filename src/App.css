@@ -52,7 +52,9 @@
 }
 
 main {
-  padding-top: 80px; 
+  padding-top: 80px;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 section {

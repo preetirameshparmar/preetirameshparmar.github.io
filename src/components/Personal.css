@@ -114,17 +114,22 @@
     font-size: 1rem;
     margin: 1rem 0 1.5rem;
     line-height: 1.5;
-    padding: 0 1rem;
+    padding: 0 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .personal-contact {
     justify-content: center;
     flex-direction: column;
     gap: 0.75rem;
-    padding: 0 1rem;
+    padding: 0 2rem;
+    max-width: 500px;
+    margin: 0 auto;
   }
   .contact-button {
     width: 100%;
-    max-width: 300px;
+    max-width: none;
     justify-content: center;
     padding: 12px 20px;
   }
@@ -146,14 +151,17 @@
   .personal-description {
     font-size: 0.95rem;
     line-height: 1.5;
-    padding: 0 0.5rem;
+    padding: 0 1.5rem;
+    max-width: 400px;
   }
   .personal-contact {
-    padding: 0 0.5rem;
+    padding: 0 1.5rem;
+    max-width: 400px;
   }
   .contact-button {
     padding: 11px 18px;
     font-size: 0.9rem;
-    max-width: 280px;
+    width: 100%;
+    max-width: none;
   }
 }
