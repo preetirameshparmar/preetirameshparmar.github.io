@@ -2,7 +2,7 @@
 Skills
 
 [Order]
-4
+3
 
 [Content]
 Programming: Java, JavaScript, Python, Swift
