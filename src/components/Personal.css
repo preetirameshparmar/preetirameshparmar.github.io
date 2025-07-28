@@ -77,20 +77,21 @@
 
 .personal-cta {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 1.5rem;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .cta-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
+  padding: 15px 30px;
   border-radius: 8px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 1.1rem;
   transition: transform 300ms ease, box-shadow 300ms ease;
   background-color: transparent;
   color: var(--primary-color);
