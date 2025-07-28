@@ -2,17 +2,23 @@
 Education
 
 [Order]
-2
+4
 
 [Content]
-Degree: Bachelors in Mass Communication
-Institution: University of Mumbai
-City: Mumbai, India
-Start: 2007
-End: 2011
+Certification Course: Marketing Management
+Institution: Sheridan College
+City: Mississauga, Ontario
+Start: Jan 2025
+End: Aug 2025
 
-Degree: Masters in Mass Communication
+Certification Course: Management and Leadership Development
 Institution: Conestoga College
 City: Toronto, Canada
-Start: 2023
-End: 2025
+Start: May 2023
+End: Dec 2023
+
+Degree: Bachelors of Management Studies
+Institution: Mumbai University
+City: Mumbai, India
+Start: 2009
+End: 2011
