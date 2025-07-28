@@ -10,7 +10,7 @@ const Personal = () => {
     fetch('/personal.txt')
       .then(response => response.text())
       .then(text => {
-        const contentMatch = text.match(/[Content]\n(.*)/s);
+        const contentMatch = text.match(/\[Content\]\n(.*)/s);
         if (contentMatch) {
           const content = contentMatch[1];
           const nameMatch = content.match(/Name: (.*?)/);

@@ -11,18 +11,53 @@ import './App.css';
 
 function App() {
   const [theme, setTheme] = useState('light');
-  const [sections] = useState({
+  const [sections, setSections] = useState({
     personal: { id: 'personal', title: 'Home', order: -Infinity, isVisible: true, component: Personal },
-    skills: { id: 'skills', title: 'Skills', order: 3, isVisible: true, component: Skills },
+    skills: { id: 'skills', title: 'Skills', order: 4, isVisible: true, component: Skills },
     projects: { id: 'projects', title: 'Projects', order: 5, isVisible: true, component: Projects },
     workExperience: { id: 'workExperience', title: 'Experience', order: 2, isVisible: true, component: WorkExperience },
     education: { id: 'education', title: 'Education', order: 1, isVisible: true, component: Education },
-    webLinks: { id: 'webLinks', title: 'Web Links', order: 4, isVisible: true, component: WebLinks },
+    webLinks: { id: 'webLinks', title: 'Web Links', order: 3, isVisible: true, component: WebLinks },
   });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    // Load section orders from text files
+    const loadSectionOrder = async (filename, sectionId) => {
+      try {
+        const response = await fetch(`/${filename}.txt`);
+        const text = await response.text();
+        const titleMatch = text.match(/\[Title\]\n(.*?)\n/);
+        const orderMatch = text.match(/\[Order\]\n(.*?)\n/);
+        
+        const title = titleMatch ? titleMatch[1].trim() : sections[sectionId]?.title;
+        const order = orderMatch ? parseInt(orderMatch[1], 10) : sections[sectionId]?.order;
+        const isVisible = order >= 0;
+        
+        setSections(prev => ({
+          ...prev,
+          [sectionId]: {
+            ...prev[sectionId],
+            title,
+            order,
+            isVisible
+          }
+        }));
+      } catch (error) {
+        console.log(`Could not load ${filename}.txt:`, error);
+      }
+    };
+
+    // Load all section configurations
+    loadSectionOrder('education', 'education');
+    loadSectionOrder('work-experience', 'workExperience');
+    loadSectionOrder('projects', 'projects');
+    loadSectionOrder('skills', 'skills');
+    loadSectionOrder('web', 'webLinks');
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
