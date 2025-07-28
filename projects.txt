@@ -1,0 +1,17 @@
+[Title]
+Projects
+
+[Order]
+4
+
+[Content]
+Name: Vedic Astrology API
+Tags: Java, Spring Boot, Swiss Ephemeris
+Description: A fully modular API system for Vedic planetary calculations.
+CTA: More...: https://github.com/preetirparmar/vedic-astrology-api
+Image: ./assets/project1.png
+
+Name: Resume App
+Tags: React, GitHub Pages
+Description: Resume rendered from `.txt` files.
+CTA: View Live: https://preetirameshparmar.github.io
