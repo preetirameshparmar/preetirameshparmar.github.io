@@ -13,7 +13,7 @@ const Personal = () => {
         const contentMatch = text.match(/\[Content\]\n(.*)/s);
         if (contentMatch) {
           const content = contentMatch[1];
-          const nameMatch = content.match(/Name: (.*?)/);
+          const nameMatch = content.match(/Name: (.*)/);
           console.log("Name Match" + nameMatch);
           const name = nameMatch ? nameMatch[1].trim() : '';
           console.log("Name" + name);
@@ -41,7 +41,7 @@ const Personal = () => {
         <img src="/profile.png" alt="Profile" />
       </div>
       <div className="personal-content">
-        <h1 className="personal-name">{personalInfo.name}</h1>
+        <h1 className="personal-name">I am {personalInfo.name}</h1>
         <p className="personal-description">
           {personalInfo.quote}
         </p>
