@@ -4,13 +4,67 @@
   background-color: var(--background);
 }
 
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: var(--primary-color);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+}
+
+.timeline-item {
+  padding: 1rem 0;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+  padding-right: 3rem;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+  padding-left: 3rem;
+  text-align: left;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--primary-color);
+  border: 3px solid var(--background);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd)::before {
+  right: -10px;
+}
+
+.timeline-item:nth-child(even)::before {
+  left: -10px;
+}
+
 .education-card {
   background-color: var(--background-paper);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: var(--shadow-elevation-low);
-  max-width: 600px;
-  margin: 2rem auto;
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
@@ -32,7 +86,7 @@
   margin-bottom: 0.5rem;
 }
 
-.timeline {
+.education-timeline {
   font-size: 1rem;
   color: var(--text-light);
 }
@@ -48,9 +102,27 @@
   .education-container {
     padding: 1.5rem 1rem;
   }
+  .timeline::before {
+    left: 30px;
+  }
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    text-align: left;
+  }
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    left: 0;
+    padding-right: 0;
+    padding-left: 70px;
+    text-align: left;
+  }
+  .timeline-item::before {
+    left: 20px !important;
+    right: auto !important;
+  }
   .education-card {
     padding: 1.5rem;
-    margin: 1.5rem auto;
   }
   .degree {
     font-size: 1.5rem;
@@ -58,7 +130,7 @@
   .institution {
     font-size: 1.1rem;
   }
-  .timeline {
+  .education-timeline {
     font-size: 0.9rem;
   }
 }
@@ -69,7 +141,6 @@
   }
   .education-card {
     padding: 1.25rem;
-    margin: 1rem auto;
   }
   .degree {
     font-size: 1.3rem;
@@ -77,7 +148,7 @@
   .institution {
     font-size: 1rem;
   }
-  .timeline {
+  .education-timeline {
     font-size: 0.85rem;
   }
 }
