@@ -31,10 +31,14 @@ const Education = () => {
   return (
     <div className="education-container">
       <h2>Education</h2>
-      <div className="education-card">
-        <h3 className="degree">{education.degree}</h3>
-        <p className="institution">{education.institution}</p>
-        <p className="timeline">{education.start} - {education.end} | {education.city}</p>
+      <div className="timeline">
+        <div className="timeline-item">
+          <div className="education-card">
+            <h3 className="degree">{education.degree}</h3>
+            <p className="institution">{education.institution}</p>
+            <p className="education-timeline">{education.start} - {education.end} | {education.city}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

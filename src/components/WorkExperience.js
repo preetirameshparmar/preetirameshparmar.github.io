@@ -15,13 +15,29 @@ const WorkExperience = () => {
           const entries = contentMatch[1].split(/\n\n(?=Start:)/);
           const parsedEntries = entries.map(entry => {
             const lines = entry.split('\n').filter(line => line.trim() !== '');
-            return lines.reduce((acc, line) => {
-              const [key, value] = line.split(': ');
-              if (typeof key === 'string' && typeof value === 'string') {
-                acc[key.trim().toLowerCase().replace(/\s+/g, '_')] = value.trim();
+            const workEntry = {};
+            let currentField = null;
+            
+            lines.forEach(line => {
+              if (line.includes(': ') && !line.startsWith('•') && !line.startsWith('• ')) {
+                const [key, ...valueParts] = line.split(': ');
+                const value = valueParts.join(': ').trim();
+                const fieldKey = key.trim().toLowerCase().replace(/\s+/g, '_');
+                workEntry[fieldKey] = value;
+                currentField = fieldKey;
+              } else if (line.trim().toLowerCase() === 'on field work:' || line.trim().toLowerCase() === 'on field work') {
+                // Handle "On Field work:" or "On Field work" lines
+                currentField = 'on_field_work';
+                workEntry[currentField] = '';
+              } else if (line.startsWith('•') || line.startsWith('• ')) {
+                // This is a bullet point for the current field
+                if (currentField === 'on_field_work') {
+                  workEntry[currentField] += (workEntry[currentField] ? '\n' : '') + line;
+                }
               }
-              return acc;
-            }, {});
+            });
+            
+            return workEntry;
           });
           
           parsedEntries.sort((a, b) => new Date(b.start) - new Date(a.start));
@@ -41,7 +57,11 @@ const WorkExperience = () => {
             <div className="timeline-content">
               <h3 className="company-name">{exp.company_name}</h3>
               <p className="job-duration">{exp.start} - {exp.end} | {exp.city}</p>
-              <p className="job-description">{exp.on_field_work}</p>
+              <div className="job-description">
+                {exp.on_field_work && exp.on_field_work.split('\n').map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))}
+              </div>
             </div>
           </div>
         ))}
