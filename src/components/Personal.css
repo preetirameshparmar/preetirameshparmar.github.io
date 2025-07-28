@@ -1,17 +1,18 @@
+/* src/components/Personal.css - Updated for larger hero section */
 
 .personal-container {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4rem;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem 4rem 2rem; /* Reduced top padding */
   background: var(--hero-gradient);
-  min-height: 80vh;
+  min-height: 75vh; /* Reduced to show next section */
 }
 
 .personal-image img {
-  width: 250px;
-  height: 250px;
+  width: 300px; /* Increased from 250px */
+  height: 300px; /* Increased from 250px */
   border-radius: 50%;
   object-fit: cover;
   border: 5px solid var(--background-paper);
@@ -19,37 +20,38 @@
 }
 
 .personal-content {
-  max-width: 600px;
+  max-width: 700px; /* Increased from 600px */
   text-align: left;
 }
 
 .personal-name {
-  font-size: 4rem;
+  font-size: 4.5rem; /* Increased from 4rem */
   font-weight: 700;
   color: var(--text-dark);
   margin: 0;
 }
 
 .personal-description {
-  font-size: 1.2rem;
+  font-size: 1.3rem; /* Increased from 1.2rem */
   color: var(--text-light);
-  margin: 1rem 0 2rem;
+  margin: 1.5rem 0 2.5rem; /* Increased margins */
   line-height: 1.6;
 }
 
 .personal-contact {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem; /* Increased gap */
 }
 
 .contact-button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 12px 24px;
+  padding: 15px 30px; /* Increased from 12px 24px */
   border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
+  font-size: 1.1rem; /* Added larger font size */
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
@@ -70,32 +72,57 @@
 }
 
 .contact-button i {
-  font-size: 1rem;
+  font-size: 1.2rem; /* Increased icon size */
+}
+
+.personal-cta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation-medium);
+  background-color: var(--primary-color);
+  color: white;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .personal-container {
     gap: 3rem;
-    padding: 3rem 1.5rem;
-  }
-  .personal-image img {
-    width: 220px;
-    height: 220px;
+    padding: 2rem;
   }
   .personal-name {
-    font-size: 3.5rem;
+    font-size: 4rem;
   }
 }
 
 @media (max-width: 768px) {
   .personal-container {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     text-align: center;
-    padding: 1.5rem 1rem 2rem;
-    min-height: calc(100vh - 100px);
-    justify-content: center;
+    padding: 1.5rem 1rem 2rem 1rem;
+    min-height: 60vh;
   }
   .personal-content {
     text-align: center;
@@ -106,71 +133,55 @@
     height: 200px;
   }
   .personal-name {
-    font-size: 2.5rem;
-    line-height: 1.1;
-    margin-bottom: 0.5rem;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
   }
   .personal-description {
     font-size: 1rem;
     margin: 1rem 0 1.5rem;
-    line-height: 1.5;
-    padding: 0 2rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 0 1rem;
   }
   .personal-contact {
     justify-content: center;
     flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  .personal-cta {
+    justify-content: center;
     gap: 0.75rem;
-    padding: 0 2rem;
-    max-width: 500px;
-    margin: 0 auto;
-    width: 100%;
-    box-sizing: border-box;
   }
   .contact-button {
-    width: calc(100% - 0px);
-    max-width: none;
-    justify-content: center;
     padding: 12px 20px;
-    box-sizing: border-box;
+    font-size: 1rem;
+    width: 280px;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
   .personal-container {
-    padding: 1rem 0.75rem 1.5rem;
-    gap: 1.25rem;
-    min-height: calc(100vh - 100px);
+    padding: 1rem 0.5rem 1.5rem 0.5rem;
+    min-height: 55vh;
   }
   .personal-image img {
-    width: 170px;
-    height: 170px;
+    width: 180px;
+    height: 180px;
   }
   .personal-name {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
   }
   .personal-description {
     font-size: 0.95rem;
-    line-height: 1.5;
-    padding: 0 1.5rem;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .personal-contact {
-    padding: 0 1.5rem;
-    max-width: 400px;
-    margin: 0 auto;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 0 0.5rem;
   }
   .contact-button {
-    padding: 11px 18px;
+    width: 260px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+  .cta-button {
+    padding: 10px 20px;
     font-size: 0.9rem;
-    width: 100%;
-    max-width: none;
-    box-sizing: border-box;
   }
 }

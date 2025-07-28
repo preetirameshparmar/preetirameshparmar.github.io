@@ -2,7 +2,7 @@
 Skills
 
 [Order]
-3
+2
 
 [Content]
 Digital Marketing: Meta Ads, Google Ads,  Funnel Marketing, WordPress, Social Media Marketing, Email Marketing, A/B Testing (Ads, Landing Pages, Emails), LinkedIn Ads, SEO (Search Engine Optimization)
