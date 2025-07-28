@@ -2,9 +2,9 @@
 Skills
 
 [Order]
-4
+3
 
 [Content]
-Programming: Java, JavaScript, Python, Swift
-Tools: Git, Docker, Firebase
-Soft Skills: Leadership, Communication, Creativity
+Digital Marketing: Meta Ads, Google Ads,  Funnel Marketing, WordPress, Social Media Marketing, Email Marketing, A/B Testing (Ads, Landing Pages, Emails), LinkedIn Ads, SEO (Search Engine Optimization)
+Tools: Meta Ads Manager, Meta Business Suite, Google Ads Editor, Google Analytics 4 (GA4), Google Tag Manager, Google Search Console, Canva, Adobe Photoshop, Later, Metricool, Hootsuite, MailChimp, LinkedIn Campaign Manager, Ahrefs, Ubersuggest, Screaming Frog, Moz
+Soft Skills: Leadership, Communication, Creativity, Analytical Thinking, Problem Solving, Collaboration, Adaptability, Empathy
