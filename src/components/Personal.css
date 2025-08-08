@@ -87,6 +87,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   padding: 15px 30px;
   border-radius: 8px;
   text-decoration: none;
@@ -96,6 +97,7 @@
   background-color: transparent;
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
+  cursor: pointer;
 }
 
 .cta-button:hover {
@@ -103,6 +105,177 @@
   box-shadow: var(--shadow-elevation-medium);
   background-color: var(--primary-color);
   color: white;
+}
+
+.resume-button {
+  background: none;
+  font-family: inherit;
+}
+
+.cta-button i {
+  font-size: 1.1rem;
+  margin-right: 0.25rem;
+}
+
+/* Resume Modal Styles */
+.resume-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  padding: 2rem;
+  backdrop-filter: blur(4px);
+}
+
+.resume-modal-content {
+  background-color: var(--background-paper);
+  border-radius: 12px;
+  width: 90vw;
+  height: 90vh;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.resume-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  background-color: var(--background);
+}
+
+.resume-modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0;
+  flex-grow: 1;
+  margin-right: 1rem;
+}
+
+.resume-modal-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.resume-modal-control-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 200ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.resume-modal-control-btn:hover {
+  background-color: var(--background);
+  color: var(--text-dark);
+  transform: scale(1.1);
+}
+
+.download-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.close-btn:hover {
+  background-color: #ef4444;
+  color: white;
+}
+
+.resume-modal-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-modal-body embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.resume-pdf-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  color: var(--text-light);
+}
+
+.fallback-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.fallback-icon {
+  font-size: 4rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.fallback-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-light);
+}
+
+.fallback-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.fallback-download-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.fallback-download-btn i {
+  font-size: 1rem;
+}
+
+/* Show fallback if embed fails */
+.resume-modal-body embed:not([src]),
+.resume-modal-body embed[src=""]:after {
+  display: none;
+}
+
+.resume-modal-body embed:not([src]) + .resume-pdf-fallback,
+.resume-modal-body embed[src=""]:after + .resume-pdf-fallback {
+  display: flex;
 }
 
 /* Responsive adjustments */
@@ -113,6 +286,15 @@
   }
   .personal-name {
     font-size: 4rem;
+  }
+  
+  .resume-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .resume-modal-content {
+    width: 95vw;
+    height: 95vh;
   }
 }
 
@@ -157,6 +339,37 @@
     width: 280px;
     justify-content: center;
   }
+  
+  .resume-modal-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .resume-modal-title {
+    font-size: 1.25rem;
+  }
+  
+  .resume-modal-control-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
+  }
+  
+  .fallback-content {
+    padding: 1.5rem;
+  }
+  
+  .fallback-icon {
+    font-size: 3rem;
+  }
+  
+  .fallback-content p {
+    font-size: 1rem;
+  }
+  
+  .fallback-download-btn {
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -183,5 +396,30 @@
   .cta-button {
     padding: 10px 20px;
     font-size: 0.9rem;
+  }
+  
+  .resume-modal-overlay {
+    padding: 0.5rem;
+  }
+  
+  .resume-modal-content {
+    width: 98vw;
+    height: 98vh;
+    border-radius: 8px;
+  }
+  
+  .resume-modal-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .resume-modal-title {
+    font-size: 1.125rem;
+  }
+  
+  .resume-modal-control-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    padding: 0.5rem;
   }
 }

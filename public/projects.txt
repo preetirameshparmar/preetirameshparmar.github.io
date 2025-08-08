@@ -5,13 +5,81 @@ Projects
 4
 
 [Content]
-Name: Vedic Astrology API
-Tags: Java, Spring Boot, Swiss Ephemeris
-Description: A fully modular API system for Vedic planetary calculations.
-CTA: More...: https://github.com/preetirparmar/vedic-astrology-api
-Image: ./assets/project1.png
+Name: At Fault Accident Claim Gosai Law SEO
+Tags: SEO Blog Ranking, SEO keywords, 
+Description: Wrote a blog about At Fault Accident Claim which ranks on the first page of Google. It was written in May 2025 and got its ranking in the month of July 2025
+CTA: More...: ./assets/at-fault-accident-claim-gosai-law-seo.gif
+Image: ./assets/at-fault-accident-claim-gosai-law-seo.gif
 
-Name: Resume App
-Tags: React, GitHub Pages
-Description: Resume rendered from `.txt` files.
-CTA: View Live: https://preetirameshparmar.github.io
+Name: CPP Disability Denial Appeal
+Tags: SEO blog ranking, SEO keywords, SEO blog
+Description: Wrote a blog on CPP Denial Decision Appeal which ranks on the first page of Google. It was written in April 2025 and got its ranking in the month of May 2025. 
+CTA: More...: ./assets/cpp-disability-denial-claim-gosai-law-seo.gif
+Image: ./assets/cpp-disability-denial-claim-gosai-law-seo.gif
+
+Name: Email Metrics Deep
+Tags: Email Marketing, Email Set Up, MailChimp
+Description: Here are some metrics from the last few emails sent. 
+CTA: More...: ./assets/email-metrics-deep.png
+Image: ./assets/email-metrics-deep.png
+
+Name: Gosai Law Email Metrics
+Tags: Email Marketing, Email Set Up, MailChimp
+Description: Here are some metrics from the last few emails sent. 
+CTA: More...: ./assets/gosai-law-email-metrics.png
+Image: ./assets/gosai-law-email-metrics.png
+
+Name: Cloudnineview Social Media Metrics
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: I helped this client of mine gain followers in 69 days and received 13K+ profile views in 30 days span. 
+CTA: More...: ./assets/cloudnineviews-social-media-metrics.png
+Image: ./assets/cloudnineviews-social-media-metrics.png
+
+Name: I am Fine Therapy POV Meme Metrics
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: Reel insights for one of the best performing reel from the past few days (July 2025). 
+CTA: More...: ./assets/i-am-fine-therapy-pov-meme-metrics.mp4
+Image: ./assets/i-am-fine-therapy-pov-meme-metrics.mp4
+
+Name: Do you read between the lines Reel Insights
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: Reel insights for another one of the best performing reel from the past few days (July 2025). 
+CTA: More...: ./assets/do-you-read-between-the-lines-reel-insights.mp4
+Image: ./assets/do-you-read-between-the-lines-reel-insights.mp4
+
+Name: Profile Views in last 30 days
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: 3.9k profile views in last 30 days 
+CTA: More...: ./assets/profile-views-in-last-30-days.png
+Image: ./assets/profile-views-in-last-30-days.png
+
+Name: Therapy Insights July 8 to Aug 6
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: Insights for last 30 days July 8 to Aug 6
+CTA: More...: ./assets/therapy-insights-july-8-to-aug-6.png
+Image: ./assets/therapy-insights-july-8-to-aug-6.png
+
+Name: Followers Metrics TikTok
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: Recent follower insights on TikTok 
+CTA: More...: ./assets/followers-metrics-tiktok.png
+Image: ./assets/followers-metrics-tiktok.png
+
+Name: TikTok Analytics 28 days Jul 10 to Aug 6
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: Recent key metrics on TikTok 
+CTA: More...: ./assets/tiktok-analytics-28-days-jul-10-to-aug-6.png
+Image: ./assets/tiktok-analytics-28-days-jul-10-to-aug-6.png
+
+Name: Top Posts TikTok Analytics
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: Top post performance in last 28 days
+CTA: More...: ./assets/top-posts-tiktok-analytics.png
+Image: ./assets/top-posts-tiktok-analytics.png
+
+Name: Viewers Metrics TikTok
+Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
+Description: Viewers metrics on TikTok
+CTA: More...: ./assets/viewers-metrics-tiktok.png
+Image: ./assets/viewers-metrics-tiktok.png
+
