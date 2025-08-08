@@ -100,36 +100,71 @@
 
 @media (max-width: 768px) {
   .education-container {
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
   }
+  
+  .timeline {
+    margin: 0;
+    position: relative;
+  }
+  
+  /* Hide the center line on mobile */
   .timeline::before {
-    left: 30px;
+    display: none;
   }
+  
   .timeline-item {
     width: 100%;
-    padding-left: 70px;
+    left: 0 !important;
+    padding: 0 0 1.5rem 0;
     text-align: left;
+    margin-bottom: 1rem;
+    position: relative;
   }
+  
   .timeline-item:nth-child(odd),
   .timeline-item:nth-child(even) {
-    left: 0;
-    padding-right: 0;
-    padding-left: 70px;
+    padding: 0 0 1.5rem 0;
     text-align: left;
   }
+  
+  /* Hide the original dots */
   .timeline-item::before {
-    left: 20px !important;
-    right: auto !important;
+    display: none;
   }
+  
   .education-card {
     padding: 1.5rem;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    position: relative;
   }
+  
+  .education-card::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 1.5rem;
+    width: 16px;
+    height: 16px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid var(--background);
+  }
+  
   .degree {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
   }
+  
   .institution {
     font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
+  
   .education-timeline {
     font-size: 0.9rem;
   }
@@ -137,17 +172,36 @@
 
 @media (max-width: 480px) {
   .education-container {
-    padding: 1.25rem 0.75rem;
+    padding: 1.5rem 0.75rem;
   }
+  
+  .timeline {
+    padding: 0.75rem 0;
+  }
+  
+  .timeline-item {
+    margin-bottom: 1.25rem;
+  }
+  
   .education-card {
     padding: 1.25rem;
   }
-  .degree {
-    font-size: 1.3rem;
+  
+  .education-card::before {
+    left: -8px;
+    top: 1.25rem;
+    width: 12px;
+    height: 12px;
   }
+  
+  .degree {
+    font-size: 1.25rem;
+  }
+  
   .institution {
     font-size: 1rem;
   }
+  
   .education-timeline {
     font-size: 0.85rem;
   }

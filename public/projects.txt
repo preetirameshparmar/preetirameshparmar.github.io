@@ -5,19 +5,19 @@ Projects
 4
 
 [Content]
-Name: At Fault Accident Claim Gosai Law SEO
+Name: At Fault Accident Claim Gosai Law SEO Ranks on First Page in two months
 Tags: SEO Blog Ranking, SEO keywords, 
 Description: Wrote a blog about At Fault Accident Claim which ranks on the first page of Google. It was written in May 2025 and got its ranking in the month of July 2025
 CTA: More...: ./assets/at-fault-accident-claim-gosai-law-seo.gif
 Image: ./assets/at-fault-accident-claim-gosai-law-seo.gif
 
-Name: CPP Disability Denial Appeal
-Tags: SEO blog ranking, SEO keywords, SEO blog
+Name: CPP Disability Denial Appeal on Google search results on first page in just a month
+Tags: SEO blog ranking, SEO keywords, SEO blog 
 Description: Wrote a blog on CPP Denial Decision Appeal which ranks on the first page of Google. It was written in April 2025 and got its ranking in the month of May 2025. 
 CTA: More...: ./assets/cpp-disability-denial-claim-gosai-law-seo.gif
 Image: ./assets/cpp-disability-denial-claim-gosai-law-seo.gif
 
-Name: Email Metrics Deep
+Name: Email Metrics For the last few Emails sent
 Tags: Email Marketing, Email Set Up, MailChimp
 Description: Here are some metrics from the last few emails sent. 
 CTA: More...: ./assets/email-metrics-deep.png
@@ -47,9 +47,9 @@ Description: Reel insights for another one of the best performing reel from the 
 CTA: More...: ./assets/do-you-read-between-the-lines-reel-insights.mp4
 Image: ./assets/do-you-read-between-the-lines-reel-insights.mp4
 
-Name: Profile Views in last 30 days
+Name: 3.9k views for therapy client in last 30 days
 Tags: Social Media Marketing, Social Media Strategy, Content Marketing, Follower Growth
-Description: 3.9k profile views in last 30 days 
+Description: 3.9k views in last 30 days 
 CTA: More...: ./assets/profile-views-in-last-30-days.png
 Image: ./assets/profile-views-in-last-30-days.png
 
