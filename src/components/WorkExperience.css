@@ -102,90 +102,110 @@
 
 @media (max-width: 768px) {
   .experience-container {
-    padding: 1.5rem 1rem;
-    max-width: 100vw;
-    overflow-x: hidden;
+    padding: 2rem 1rem;
   }
+  
   .timeline {
     padding: 1rem 0;
-    max-width: 100%;
-    overflow-x: hidden;
     margin: 0;
+    position: relative;
   }
+  
+  /* Hide the center line on mobile */
   .timeline::before {
-    left: 16px;
+    display: none;
   }
+  
   .timeline-item {
-    width: calc(100% - 2.5rem);
-    padding-left: 2.5rem;
-    padding-right: 0;
+    width: 100%;
+    left: 0 !important;
+    padding: 0 0 1.5rem 0;
     text-align: left;
-    margin: 0;
+    margin-bottom: 1rem;
+    position: relative;
   }
+  
   .timeline-item:nth-child(odd),
   .timeline-item:nth-child(even) {
-    left: 0;
+    padding: 0 0 1.5rem 0;
+    text-align: left;
   }
-  .timeline-item:nth-child(odd) .timeline-dot,
-  .timeline-item:nth-child(even) .timeline-dot {
-    left: 8px;
+  
+  /* Style the dots as cards indicators */
+  .timeline-dot {
+    display: none;
   }
+  
   .timeline-content {
-    padding: 1.25rem;
-    margin-right: 0;
+    padding: 1.5rem;
+    margin: 0;
     width: 100%;
-    max-width: calc(100vw - 4rem);
     box-sizing: border-box;
-    overflow-wrap: break-word;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    position: relative;
   }
+  
+  .timeline-content::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 1.5rem;
+    width: 16px;
+    height: 16px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid var(--background);
+  }
+  
   .company-name {
-    font-size: 1.3rem;
-    overflow-wrap: break-word;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .job-duration {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .job-description {
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
   .experience-container {
-    padding: 1.25rem 0.75rem;
-    max-width: 100vw;
-    overflow-x: hidden;
+    padding: 1.5rem 0.75rem;
   }
+  
   .timeline {
     padding: 0.75rem 0;
-    margin: 0;
   }
+  
   .timeline-item {
-    width: calc(100% - 2rem);
-    padding-left: 2rem;
-    padding-right: 0;
-    margin: 0;
+    margin-bottom: 1.25rem;
   }
-  .timeline::before {
-    left: 12px;
-  }
-  .timeline-item:nth-child(odd) .timeline-dot,
-  .timeline-item:nth-child(even) .timeline-dot {
-    left: 4px;
-  }
+  
   .timeline-content {
-    padding: 1rem;
-    width: 100%;
-    max-width: calc(100vw - 3.5rem);
-    box-sizing: border-box;
-    overflow-wrap: break-word;
+    padding: 1.25rem;
   }
+  
+  .timeline-content::before {
+    left: -8px;
+    top: 1.25rem;
+    width: 12px;
+    height: 12px;
+  }
+  
   .company-name {
-    font-size: 1.2rem;
-    overflow-wrap: break-word;
-    word-break: break-word;
+    font-size: 1.25rem;
   }
+  
   .job-duration {
     font-size: 0.85rem;
-    overflow-wrap: break-word;
   }
+  
   .job-description {
     font-size: 0.9rem;
-    overflow-wrap: break-word;
-    word-break: break-word;
   }
 }
