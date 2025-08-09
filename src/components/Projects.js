@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { trackProjectView, trackProjectMediaOpen, trackCTAClick } from '../utils/analytics';
 import './Projects.css';
 
 const Projects = () => {
@@ -45,6 +46,11 @@ const Projects = () => {
   const openModal = (project) => {
     const imagePath = project.image || '/default-project.jpg';
     const isVideo = imagePath.includes('.mp4') || imagePath.includes('.webm') || imagePath.includes('.mov');
+    
+    // Track analytics
+    trackProjectView(project.name);
+    const mediaType = isVideo ? 'video' : 'image';
+    trackProjectMediaOpen(project.name, mediaType);
     
     setModalContent({
       src: imagePath,
@@ -209,7 +215,13 @@ const Projects = () => {
             
             {project.ctaLabel && project.ctaUrl && (
               <div className="project-cta">
-                <a href={project.ctaUrl} className="project-cta-button" target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={project.ctaUrl} 
+                  className="project-cta-button" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => trackCTAClick(project.name, project.ctaLabel)}
+                >
                   {project.ctaLabel}
                 </a>
               </div>
