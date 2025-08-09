@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { trackContact, trackEvent } from '../utils/analytics';
 import './Personal.css';
 
 const Personal = () => {
@@ -49,6 +50,7 @@ const Personal = () => {
   }, []);
 
   const openResumeModal = () => {
+    trackEvent('view_resume', 'Resume', 'Open Modal');
     setIsResumeModalOpen(true);
   };
 
@@ -57,6 +59,7 @@ const Personal = () => {
   };
 
   const downloadResume = () => {
+    trackEvent('download_resume', 'Resume', 'PDF Download');
     const link = document.createElement('a');
     link.href = '/assets/preeti-ramesh-parmar-resume.pdf';
     link.download = 'Preeti_Ramesh_Parmar_Resume.pdf';
@@ -93,10 +96,18 @@ const Personal = () => {
           {personalInfo.quote}
         </p>
         <div className="personal-contact">
-          <a href={`mailto:${personalInfo.email}`} className="contact-button">
+          <a 
+            href={`mailto:${personalInfo.email}`} 
+            className="contact-button"
+            onClick={() => trackContact('email')}
+          >
             <i className="fas fa-envelope"></i> {personalInfo.email}
           </a>
-          <a href={`tel:${personalInfo.phone}`} className="contact-button">
+          <a 
+            href={`tel:${personalInfo.phone}`} 
+            className="contact-button"
+            onClick={() => trackContact('phone')}
+          >
             <i className="fas fa-phone"></i> {personalInfo.phone}
           </a>
         </div>
@@ -123,6 +134,7 @@ const Personal = () => {
                 className="cta-button"
                 target="_blank" 
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('click_social', 'Social', cta.label)}
               >
                 {cta.label === 'LinkedIn' && <i className="fab fa-linkedin"></i>} {cta.label}
               </a>

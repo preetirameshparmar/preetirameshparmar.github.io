@@ -6,6 +6,7 @@ import Education from './components/Education';
 import WorkExperience from './components/WorkExperience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import { initializeGA, trackNavigation } from './utils/analytics';
 import './App.css';
 
 
@@ -23,6 +24,11 @@ function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  // Initialize Google Analytics
+  useEffect(() => {
+    initializeGA();
+  }, []);
 
   useEffect(() => {
     // Load section orders from text files
@@ -76,7 +82,11 @@ function App() {
         </div>
         <nav className="app-nav">
           {sortedSections.map(section => (
-            <a key={section.id} href={`#${section.id}`}>
+            <a 
+              key={section.id} 
+              href={`#${section.id}`}
+              onClick={() => trackNavigation(section.title)}
+            >
               {section.title}
             </a>
           ))}
