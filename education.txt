@@ -1,0 +1,24 @@
+[Title]
+Education
+
+[Order]
+3
+
+[Content]
+Degree: Marketing Management
+Institution: Sheridan College
+City: Mississauga, Ontario
+Start: Jan 2025
+End: Aug 2025
+
+Degree: Management and Leadership Development
+Institution: Conestoga College
+City: Toronto, Canada
+Start: May 2023
+End: Dec 2023
+
+Degree: Bachelors of Management Studies
+Institution: Mumbai University
+City: Mumbai, India
+Start: 2009
+End: 2011
