@@ -28,15 +28,25 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Initialize Google Analytics
+  // Initialize Google Analytics and tracking
   useEffect(() => {
     initializeGA();
+    
+    // Set up scroll tracking
+    const handleScroll = useScrollTracking();
     window.addEventListener('scroll', handleScroll);
+    
+    // Set up time tracking
+    const cleanUpTimeTracking = useTimeTracking();
+    
+    // Cleanup function
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if(cleanUpTimeTracking) cleanUpTimeTracking();
-    }
-  }, []);
+      if (cleanUpTimeTracking) {
+        cleanUpTimeTracking();
+      }
+    };
+  }, []); // Empty dependency array is fine here
 
   useEffect(() => {
     // Load section orders from text files
