@@ -48,6 +48,7 @@ function App() {
     };
   }, []); // Empty dependency array is fine here
 
+
   useEffect(() => {
     // Load section orders from text files
     const loadSectionOrder = async (filename, sectionId) => {
