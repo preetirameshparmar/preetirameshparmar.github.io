@@ -6,7 +6,7 @@ import Education from './components/Education';
 import WorkExperience from './components/WorkExperience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
-import { initializeGA, trackNavigation } from './utils/analytics';
+import { initializeGA, trackNavigation, trackThemeToggle, useScrollTracking, useTimeTracking } from './utils/analytics';
 import './App.css';
 
 
@@ -21,6 +21,9 @@ function App() {
     webLinks: { id: 'webLinks', title: 'Web Links', order: 3, isVisible: true, component: WebLinks },
   });
 
+  const handleScroll = useScrollTracking();
+  const cleanUpTimeTracking = useTimeTracking();
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
@@ -28,6 +31,11 @@ function App() {
   // Initialize Google Analytics
   useEffect(() => {
     initializeGA();
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if(cleanUpTimeTracking) cleanUpTimeTracking();
+    }
   }, []);
 
   useEffect(() => {
@@ -66,7 +74,9 @@ function App() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    trackThemeToggle(newTheme); 
   };
 
 
