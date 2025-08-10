@@ -47,6 +47,7 @@ export const trackEvent = (action, category, label, value) => {
       event_label: label,
       value: value,
     });
+
     console.log('Event sent to GA4');
   } else {
     console.warn('GA4 not available:', { gtag: !!window.gtag, trackingId: GA_TRACKING_ID });
