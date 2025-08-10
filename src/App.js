@@ -41,6 +41,7 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+
   // Scroll tracking function
   const handleScroll = useCallback(() => {
     const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
