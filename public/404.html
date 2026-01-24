@@ -12,8 +12,22 @@
       // to the new url with only a query string and hash fragment,
       // e.g. https://www.foo.bar/1/2/3?a=b&c=d#qwe becomes
       // https://www.foo.bar/?p=/1/2/3&q=a=b%26c=d&h=qwe
-      var segmentCount = 1; // Change to matching component count of project root
       var l = window.location;
+      
+      // Dynamic Segment Count Logic
+      // Default to 0 for Root Site (username.github.io)
+      var segmentCount = 0; 
+
+      // If we are in a PR Preview (e.g. /pr-preview/pr-17/...)
+      var pathSegments = l.pathname.split('/');
+      if (pathSegments.length > 2 && pathSegments[1] === 'pr-preview') {
+          segmentCount = 2; // Keep /pr-preview/pr-XX
+      } else if (l.hostname.indexOf('github.io') > -1 && l.pathname.split('/').length > 1 && l.pathname.split('/')[1] !== '') {
+         // Handle case where project pages might be used in future (e.g. /repo-name)
+         // But for now, since it is a User Page, assume root unless pr-preview.
+         // segmentCount = 1; // Uncomment if this moves to a Project Page repo
+      }
+
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
         l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
