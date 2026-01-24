@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { backend } from '../../services/backend';
 
 const ProtectedRoute = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // In a real generic app, we'd use a Context Provider. 
@@ -18,17 +20,17 @@ const ProtectedRoute = ({ children }) => {
                     // Determine redirect
                     // If local mode, we might auto-login or redirect to a simple login form
                     // For now, redirect to /login
-                    window.location.href = '/login';
+                    navigate('/login');
                 }
             } catch (e) {
                 console.error("Auth check failed", e);
-                window.location.href = '/login';
+                navigate('/login');
             } finally {
                 setLoading(false);
             }
         };
         checkUser();
-    }, []);
+    }, [navigate]);
 
     if (loading) return <div>Loading Auth...</div>;
     if (!user) return null; // Will redirect

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { backend } from '../services/backend';
 import './Login.css';
 
@@ -6,12 +7,13 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             await backend.login(email, password);
-            window.location.href = '/admin/sections';
+            navigate('/admin/sections');
         } catch (err) {
             setError('Invalid credentials');
             console.error(err);
