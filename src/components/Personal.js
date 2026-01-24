@@ -3,51 +3,21 @@ import React, { useState, useEffect } from 'react';
 import { trackContact, trackEvent } from '../utils/analytics';
 import './Personal.css';
 
-const Personal = () => {
+const Personal = ({ data }) => {
   const [personalInfo, setPersonalInfo] = useState({ name: '', phone: '', email: '', quote: '', ctaButtons: [] });
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch('/personal.txt')
-      .then(response => response.text())
-      .then(text => {
-        const contentMatch = text.match(/\[Content\]\n(.*?)(?=\[CTA\]|$)/s);
-        const ctaMatch = text.match(/\[CTA\]\n(.*)/s);
-        
-        let name = '', phone = '', email = '', quote = '';
-        
-        if (contentMatch) {
-          const content = contentMatch[1];
-          const nameMatch = content.match(/Name: (.*)/);
-          name = nameMatch ? nameMatch[1].trim() : '';
-          const phoneMatch = content.match(/Phone: (.*)/);
-          phone = phoneMatch ? phoneMatch[1].trim() : '';
-          const emailMatch = content.match(/Email: (.*)/);
-          email = emailMatch ? emailMatch[1].trim() : '';
-          const quoteMatch = content.match(/Quote: (.*)/);
-          quote = quoteMatch ? quoteMatch[1].trim() : '';
-        }
-
-        let ctaButtons = [];
-        if (ctaMatch) {
-          const ctaContent = ctaMatch[1];
-          const ctaLines = ctaContent.split('\n').filter(line => line.trim().startsWith('- '));
-          ctaButtons = ctaLines.map(line => {
-            // Parse format: "- Label - https://linktolabel"
-            const match = line.match(/^- (.*?) - (https?:\/\/.*)/);
-            if (match) {
-              return {
-                label: match[1].trim(),
-                url: match[2].trim()
-              };
-            }
-            return null;
-          }).filter(Boolean);
-        }
-
-        setPersonalInfo({ name, phone, email, quote, ctaButtons });
+    if (data) {
+      setPersonalInfo({
+        name: data.name || '',
+        phone: data.phone || '',
+        email: data.email || '',
+        quote: data.quote || '',
+        ctaButtons: data.cta_buttons || [] // Graceful fallback
       });
-  }, []);
+    }
+  }, [data]);
 
   const openResumeModal = () => {
     trackEvent('view_resume', 'Resume', 'Open Modal');
@@ -96,28 +66,28 @@ const Personal = () => {
           {personalInfo.quote}
         </p>
         <div className="personal-contact">
-          <a 
-            href={`mailto:${personalInfo.email}`} 
+          <a
+            href={`mailto:${personalInfo.email}`}
             className="contact-button"
             onClick={() => trackContact('email')}
           >
             <i className="fas fa-envelope"></i> {personalInfo.email}
           </a>
-          <a 
-            href={`tel:${personalInfo.phone}`} 
+          <a
+            href={`tel:${personalInfo.phone}`}
             className="contact-button"
             onClick={() => trackContact('phone')}
           >
             <i className="fas fa-phone"></i> {personalInfo.phone}
           </a>
         </div>
-        
+
         <div className="personal-cta">
           {personalInfo.ctaButtons.map((cta, index) => {
             // Replace Portfolio button with Resume button
             if (cta.label.toLowerCase().includes('portfolio')) {
               return (
-                <button 
+                <button
                   key={index}
                   onClick={openResumeModal}
                   className="cta-button resume-button"
@@ -126,13 +96,13 @@ const Personal = () => {
                 </button>
               );
             }
-            
+
             return (
-              <a 
+              <a
                 key={index}
-                href={cta.url} 
+                href={cta.url}
                 className="cta-button"
-                target="_blank" 
+                target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('click_social', 'Social', cta.label)}
               >
@@ -150,15 +120,15 @@ const Personal = () => {
             <div className="resume-modal-header">
               <h3 className="resume-modal-title">Resume - Preeti Ramesh Parmar</h3>
               <div className="resume-modal-controls">
-                <button 
-                  className="resume-modal-control-btn download-btn" 
+                <button
+                  className="resume-modal-control-btn download-btn"
                   onClick={downloadResume}
                   title="Download Resume"
                 >
                   <i className="fas fa-download"></i>
                 </button>
-                <button 
-                  className="resume-modal-control-btn close-btn" 
+                <button
+                  className="resume-modal-control-btn close-btn"
                   onClick={closeResumeModal}
                   title="Close"
                 >
@@ -166,12 +136,12 @@ const Personal = () => {
                 </button>
               </div>
             </div>
-            
+
             <div className="resume-modal-body">
-              <embed 
-                src="/assets/preeti-ramesh-parmar-resume.pdf" 
+              <embed
+                src="/assets/preeti-ramesh-parmar-resume.pdf"
                 type="application/pdf"
-                width="100%" 
+                width="100%"
                 height="100%"
               />
               <div className="resume-pdf-fallback">

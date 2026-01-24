@@ -1,156 +1,91 @@
+// src/App.js
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Personal from './components/Personal';
-import WebLinks from './components/WebLinks';
 import Education from './components/Education';
 import WorkExperience from './components/WorkExperience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
-import { initializeGA, trackNavigation, trackThemeToggle } from './utils/analytics';
+import WebLinks from './components/WebLinks';
+import HiddenSection from './components/HiddenSection';
+import Login from './admin/Login';
+import AdminLayout from './admin/AdminLayout';
+import ContentManager from './admin/ContentManager';
+import BlogManager from './admin/BlogManager';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import { backend } from './services/backend';
 import './App.css';
 
-
-function App() {
+function MainSite() {
   const [theme, setTheme] = useState('light');
-  const [sections, setSections] = useState({
-    personal: { id: 'personal', title: 'Home', order: -Infinity, isVisible: true, component: Personal },
-    skills: { id: 'skills', title: 'Skills', order: 4, isVisible: true, component: Skills },
-    projects: { id: 'projects', title: 'Projects', order: 5, isVisible: true, component: Projects },
-    workExperience: { id: 'workExperience', title: 'Experience', order: 2, isVisible: true, component: WorkExperience },
-    education: { id: 'education', title: 'Education', order: 1, isVisible: true, component: Education },
-    webLinks: { id: 'webLinks', title: 'Web Links', order: 3, isVisible: true, component: WebLinks },
-  });
+  // Sections state logic - currently still uses files or backend?
+  // Transition: Let's try to load from backend if available, fallback to empty
+  const [sections, setSections] = useState([]);
 
-  // Refs for tracking state
-  const scrollTrackingRef = useRef({
-    scrolled25: false,
-    scrolled50: false,
-    scrolled75: false,
-    scrolled90: false
-  });
-  
-  const timeTrackingRef = useRef({
-    startTime: Date.now(),
-    tracked30s: false,
-    tracked1min: false,
-    tracked2min: false,
-    tracked5min: false
-  });
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const visibilityParam = searchParams.get('visibility');
+  const allowedHiddenSections = visibilityParam ? visibilityParam.toLowerCase().split(',') : [];
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-
-  // Scroll tracking function
-  const handleScroll = useCallback(() => {
-    const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    const tracking = scrollTrackingRef.current;
-    
-    if (scrollPercent >= 25 && !tracking.scrolled25) {
-      import('./utils/analytics').then(({ trackScrollDepth }) => trackScrollDepth(25));
-      tracking.scrolled25 = true;
-    }
-    if (scrollPercent >= 50 && !tracking.scrolled50) {
-      import('./utils/analytics').then(({ trackScrollDepth }) => trackScrollDepth(50));
-      tracking.scrolled50 = true;
-    }
-    if (scrollPercent >= 75 && !tracking.scrolled75) {
-      import('./utils/analytics').then(({ trackScrollDepth }) => trackScrollDepth(75));
-      tracking.scrolled75 = true;
-    }
-    if (scrollPercent >= 90 && !tracking.scrolled90) {
-      import('./utils/analytics').then(({ trackScrollDepth }) => trackScrollDepth(90));
-      tracking.scrolled90 = true;
-    }
-  }, []);
-
-  // Time tracking function
-  const checkTimeOnSite = useCallback(() => {
-    const timeSpent = (Date.now() - timeTrackingRef.current.startTime) / 1000;
-    const tracking = timeTrackingRef.current;
-    
-    if (timeSpent >= 30 && !tracking.tracked30s) {
-      import('./utils/analytics').then(({ trackTimeOnSite }) => trackTimeOnSite(30));
-      tracking.tracked30s = true;
-    }
-    if (timeSpent >= 60 && !tracking.tracked1min) {
-      import('./utils/analytics').then(({ trackTimeOnSite }) => trackTimeOnSite(60));
-      tracking.tracked1min = true;
-    }
-    if (timeSpent >= 120 && !tracking.tracked2min) {
-      import('./utils/analytics').then(({ trackTimeOnSite }) => trackTimeOnSite(120));
-      tracking.tracked2min = true;
-    }
-    if (timeSpent >= 300 && !tracking.tracked5min) {
-      import('./utils/analytics').then(({ trackTimeOnSite }) => trackTimeOnSite(300));
-      tracking.tracked5min = true;
-    }
-  }, []);
-
-  // Initialize Google Analytics and tracking
   useEffect(() => {
-    initializeGA();
-    
-    // Set up scroll tracking
-    window.addEventListener('scroll', handleScroll);
-    
-    // Set up time tracking
-    const timeInterval = setInterval(checkTimeOnSite, 10000);
-    
-    // Cleanup function
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearInterval(timeInterval);
-    };
-  }, [handleScroll, checkTimeOnSite]);
-
-
-  useEffect(() => {
-    // Load section orders from text files
-    const loadSectionOrder = async (filename, sectionId) => {
+    // Load sections from Backend now instead of legacy text files
+    // But since backend returns generic 'sections' array, we need to map them to components.
+    const fetchContent = async () => {
       try {
-        const response = await fetch(`/${filename}.txt`);
-        const text = await response.text();
-        const titleMatch = text.match(/\[Title\]\n(.*?)\n/);
-        const orderMatch = text.match(/\[Order\]\n(.*?)\n/);
-        
-        const title = titleMatch ? titleMatch[1].trim() : sections[sectionId]?.title;
-        const order = orderMatch ? parseInt(orderMatch[1], 10) : sections[sectionId]?.order;
-        const isVisible = order >= 0;
-        
-        setSections(prev => ({
-          ...prev,
-          [sectionId]: {
-            ...prev[sectionId],
-            title,
-            order,
-            isVisible
-          }
-        }));
-      } catch (error) {
-        console.log(`Could not load ${filename}.txt:`, error);
+        const data = await backend.getSections();
+        setSections(data);
+      } catch (e) {
+        console.error("Failed to load sections from DB", e);
       }
     };
-
-    // Load all section configurations
-    loadSectionOrder('education', 'education');
-    loadSectionOrder('work-experience', 'workExperience');
-    loadSectionOrder('projects', 'projects');
-    loadSectionOrder('skills', 'skills');
-    loadSectionOrder('web', 'webLinks');
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    fetchContent();
+  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    trackThemeToggle(newTheme); 
   };
 
+  // Component Map
+  const componentMap = {
+    'personal': Personal,
+    'education': Education,
+    'experience': WorkExperience,
+    'project': Projects,
+    'skills': Skills,
+    'links': WebLinks,
+    'hidden': HiddenSection,
+    'pricing': HiddenSection
+  };
 
-  const sortedSections = Object.values(sections)
-    .filter(sec => sec.isVisible)
-    .sort((a, b) => a.order - b.order);
+  const personalSection = sections.find(s => s.type === 'personal');
+
+  // Filter Logic
+  const visibleSections = sections.filter(s => {
+    if (s.type === 'personal') return false;
+
+    const isHiddenType = s.type === 'hidden' || s.type === 'pricing';
+
+    if (isHiddenType) {
+      const slug = s.title.toLowerCase();
+      return allowedHiddenSections.includes(slug);
+    }
+
+    return s.is_visible !== false;
+  });
+
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="App">
@@ -159,33 +94,60 @@ function App() {
           <h2>My Portfolio</h2>
         </div>
         <nav className="app-nav">
-          {sortedSections.map(section => (
-            <a 
-              key={section.id} 
-              href={`#${section.id}`}
-              onClick={() => trackNavigation(section.title)}
-            >
-              {section.title}
-            </a>
-          ))}
+          <a href="#personal" onClick={(e) => scrollToSection(e, 'personal')}>Home</a>
+          {visibleSections.map(s => {
+            const id = s.title.toLowerCase().replace(/\s/g, '-');
+            return (
+              <a key={s.id} href={`#${id}`} onClick={(e) => scrollToSection(e, id)}>{s.title}</a>
+            );
+          })}
         </nav>
         <button onClick={toggleTheme} className="theme-toggle">
           {theme === 'light' ? <i className="fas fa-moon"></i> : <i className="fas fa-sun"></i>}
         </button>
       </header>
       <main>
-        <section id="personal"><Personal /></section>
-        {sortedSections.map(section => {
-          if (section.id === 'personal') return null; // Personal is always first and handled separately
-          const Component = section.component;
+        {personalSection && (
+          <section id="personal">
+            <Personal data={personalSection.content} />
+          </section>
+        )}
+
+        {visibleSections.map(section => {
+          const Component = componentMap[section.type] || componentMap['hidden'];
+          if (!Component) return null;
           return (
-            <section id={section.id} key={section.id}>
-              <Component />
+            <section id={section.title.toLowerCase().replace(/\s/g, '-')} key={section.id}>
+              <Component data={section.content} title={section.title} />
             </section>
           );
         })}
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/admin/*" element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <Routes>
+                <Route path="sections" element={<ContentManager />} />
+                <Route path="blogs" element={<BlogManager />} />
+                <Route path="/" element={<Navigate to="sections" />} />
+              </Routes>
+            </AdminLayout>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/" element={<MainSite />} />
+      </Routes>
+    </Router>
   );
 }
 

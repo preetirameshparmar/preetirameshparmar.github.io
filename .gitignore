@@ -27,3 +27,14 @@ yarn-error.log*
 
 *DE.md
 .*de
+.agent
+
+# Local CMS Server
+server/node_modules
+server/.env
+.env
+.env.local
+
+# Local Uploads
+public/uploads/*
+!public/uploads/.gitkeep

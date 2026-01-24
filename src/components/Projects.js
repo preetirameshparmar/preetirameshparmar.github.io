@@ -2,56 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { trackProjectView, trackProjectMediaOpen, trackCTAClick } from '../utils/analytics';
 import './Projects.css';
 
-const Projects = () => {
+const Projects = ({ data }) => {
   const [projects, setProjects] = useState([]);
   const [modalContent, setModalContent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
-    fetch('/projects.txt')
-      .then(response => response.text())
-      .then(text => {
-        const contentMatch = text.match(/\[Content\]\n(.*)/s);
-
-        if (contentMatch) {
-          const entries = contentMatch[1].split(/\n\n(?=Name:)/);
-          const parsedEntries = entries.map(entry => {
-            const lines = entry.split('\n').filter(line => line.trim() !== '');
-            const projectData = lines.reduce((acc, line) => {
-              const [key, ...valueParts] = line.split(': ');
-              if (key && valueParts.length > 0) {
-                const value = valueParts.join(': ').trim();
-                acc[key.trim().toLowerCase().replace(' ', '_')] = value;
-              }
-              return acc;
-            }, {});
-            
-            // Parse CTA if available
-            if (projectData.cta) {
-              const ctaMatch = projectData.cta.match(/^(.*?): (.*)/);
-              if (ctaMatch) {
-                projectData.ctaLabel = ctaMatch[1].trim();
-                projectData.ctaUrl = ctaMatch[2].trim();
-              }
-            }
-            
-            return projectData;
-          });
-          setProjects(parsedEntries);
+    if (data?.items) {
+      const parsedEntries = data.items.map(projectData => {
+        // Clone to avoid mutating prop
+        const entry = { ...projectData };
+        // Parse CTA if available
+        if (entry.cta) {
+          const ctaMatch = entry.cta.match(/^(.*?): (.*)/);
+          if (ctaMatch) {
+            // Legacy: Label: URL
+            entry.ctaLabel = ctaMatch[1].trim();
+            entry.ctaUrl = ctaMatch[2].trim();
+          } else {
+            // New: Just Label -> Open Modal
+            entry.ctaLabel = entry.cta.trim();
+            entry.ctaUrl = null;
+          }
         }
+        return entry;
       });
-  }, []);
+      setProjects(parsedEntries);
+    }
+  }, [data]);
 
   const openModal = (project) => {
     const imagePath = project.image || '/default-project.jpg';
     const isVideo = imagePath.includes('.mp4') || imagePath.includes('.webm') || imagePath.includes('.mov');
-    
+
     // Track analytics
     trackProjectView(project.name);
     const mediaType = isVideo ? 'video' : 'image';
     trackProjectMediaOpen(project.name, mediaType);
-    
+
     setModalContent({
       src: imagePath,
       alt: project.name,
@@ -121,7 +110,7 @@ const Projects = () => {
   const getFileType = (filePath) => {
     if (!filePath) return 'image';
     const extension = filePath.split('.').pop().toLowerCase();
-    
+
     if (['mp4', 'webm', 'mov', 'avi'].includes(extension)) {
       return 'video';
     } else if (['pdf'].includes(extension)) {
@@ -140,8 +129,8 @@ const Projects = () => {
       case 'video':
         return (
           <div className="project-media clickable" onClick={() => openModal(project)}>
-            <video 
-              src={imagePath} 
+            <video
+              src={imagePath}
               poster={imagePath.replace(/\.(mp4|webm|mov|avi)$/, '.jpg')}
               muted
               loop
@@ -151,8 +140,8 @@ const Projects = () => {
                 e.target.nextSibling.style.display = 'block';
               }}
             />
-            <img 
-              src="/default-project.jpg" 
+            <img
+              src="/default-project.jpg"
               alt={`${project.name} fallback`}
               style={{ display: 'none' }}
             />
@@ -180,12 +169,12 @@ const Projects = () => {
       default:
         return (
           <div className="project-media clickable" onClick={() => openModal(project)}>
-            <img 
-              src={imagePath} 
-              alt={project.name} 
+            <img
+              src={imagePath}
+              alt={project.name}
               onError={(e) => {
                 e.target.src = '/default-project.jpg';
-              }} 
+              }}
             />
             <div className="media-overlay">
               <span className="zoom-icon">🔍</span>
@@ -204,23 +193,29 @@ const Projects = () => {
           <div className="project-card" key={index}>
             <h3 className="project-name">{project.name}</h3>
             <p className="project-description">{project.description}</p>
-            
+
             {renderMediaPreview(project, index)}
-            
+
             <div className="project-tech-stack">
               {(project.tags || project.tech_stack)?.split(', ').map((tech, i) => (
                 <span className="tech-item" key={i}>{tech}</span>
               ))}
             </div>
-            
-            {project.ctaLabel && project.ctaUrl && (
+
+            {project.ctaLabel && (
               <div className="project-cta">
-                <a 
-                  href={project.ctaUrl} 
-                  className="project-cta-button" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  onClick={() => trackCTAClick(project.name, project.ctaLabel)}
+                <a
+                  href={project.ctaUrl || '#'}
+                  className="project-cta-button"
+                  target={project.ctaUrl ? "_blank" : undefined}
+                  rel={project.ctaUrl ? "noopener noreferrer" : undefined}
+                  onClick={(e) => {
+                    trackCTAClick(project.name, project.ctaLabel);
+                    if (!project.ctaUrl) {
+                      e.preventDefault();
+                      openModal(project);
+                    }
+                  }}
                 >
                   {project.ctaLabel}
                 </a>
@@ -237,15 +232,15 @@ const Projects = () => {
             <div className="modal-header">
               <h3 className="modal-title">{modalContent.title}</h3>
               <div className="modal-controls">
-                <button 
-                  className="modal-control-btn fullscreen-btn" 
+                <button
+                  className="modal-control-btn fullscreen-btn"
                   onClick={toggleFullscreen}
                   title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                 >
                   {isFullscreen ? "⤡" : "⤢"}
                 </button>
-                <button 
-                  className="modal-control-btn close-btn" 
+                <button
+                  className="modal-control-btn close-btn"
                   onClick={closeModal}
                   title="Close"
                 >
@@ -253,14 +248,14 @@ const Projects = () => {
                 </button>
               </div>
             </div>
-            
+
             <div className="modal-body">
               {modalContent.src.includes('.pdf') ? (
                 <div className="pdf-viewer">
-                  <embed 
-                    src={modalContent.src} 
+                  <embed
+                    src={modalContent.src}
                     type="application/pdf"
-                    width="100%" 
+                    width="100%"
                     height="600px"
                   />
                   <div className="pdf-fallback">
@@ -271,9 +266,9 @@ const Projects = () => {
                   </div>
                 </div>
               ) : modalContent.isVideo ? (
-                <video 
+                <video
                   src={modalContent.src}
-                  controls 
+                  controls
                   autoPlay
                   loop
                   className="modal-video"
@@ -289,8 +284,8 @@ const Projects = () => {
                   }}
                 />
               ) : (
-                <img 
-                  src={modalContent.src} 
+                <img
+                  src={modalContent.src}
                   alt={modalContent.alt}
                   className="modal-image"
                   onError={(e) => {
@@ -298,7 +293,7 @@ const Projects = () => {
                   }}
                 />
               )}
-              
+
               {modalContent.isVideo && (
                 <div className="video-error-fallback" style={{ display: 'none' }}>
                   <p>Video could not be loaded</p>
@@ -306,7 +301,7 @@ const Projects = () => {
                 </div>
               )}
             </div>
-            
+
             {modalContent.description && (
               <div className="modal-footer">
                 <p className="modal-description">{modalContent.description}</p>

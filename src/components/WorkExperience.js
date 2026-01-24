@@ -1,51 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './WorkExperience.css';
 
-const WorkExperience = () => {
-  const [experiences, setExperiences] = useState([]);
+const WorkExperience = ({ data }) => {
+  const experiences = data?.items || [];
 
-  useEffect(() => {
-    fetch('/work-experience.txt')
-      .then(response => response.text())
-      .then(text => {
-        const contentMatch = text.match(/\[Content\]\n(.*)/s);
-
-
-        if (contentMatch) {
-          const entries = contentMatch[1].split(/\n\n(?=Start:)/);
-          const parsedEntries = entries.map(entry => {
-            const lines = entry.split('\n').filter(line => line.trim() !== '');
-            const workEntry = {};
-            let currentField = null;
-            
-            lines.forEach(line => {
-              if (line.includes(': ') && !line.startsWith('•') && !line.startsWith('• ')) {
-                const [key, ...valueParts] = line.split(': ');
-                const value = valueParts.join(': ').trim();
-                const fieldKey = key.trim().toLowerCase().replace(/\s+/g, '_');
-                workEntry[fieldKey] = value;
-                currentField = fieldKey;
-              } else if (line.trim().toLowerCase() === 'on field work:' || line.trim().toLowerCase() === 'on field work') {
-                // Handle "On Field work:" or "On Field work" lines
-                currentField = 'on_field_work';
-                workEntry[currentField] = '';
-              } else if (line.startsWith('•') || line.startsWith('• ')) {
-                // This is a bullet point for the current field
-                if (currentField === 'on_field_work') {
-                  workEntry[currentField] += (workEntry[currentField] ? '\n' : '') + line;
-                }
-              }
-            });
-            
-            return workEntry;
-          });
-          
-          parsedEntries.sort((a, b) => new Date(b.start) - new Date(a.start));
-          setExperiences(parsedEntries);
-        }
-
-      });
-  }, []);
+  // Legacy fetch removed in favor of DB data passed via props
 
   return (
     <div className="experience-container">

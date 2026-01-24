@@ -1,35 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import './WebLinks.css';
 
-const WebLinks = () => {
+const WebLinks = ({ data }) => {
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
-    fetch('/web.txt')
-      .then(response => response.text())
-      .then(text => {
-        const contentMatch = text.match(/\[Content\]\n(.*)/s);
+    let rawContent = '';
+    if (typeof data === 'string') {
+      rawContent = data;
+    } else if (data?.raw) {
+      rawContent = data.raw;
+    }
 
-
-        if (contentMatch) {
-          const lines = contentMatch[1].split('\n').filter(line => line.trim() !== '');
-          const parsedLinks = lines.map(line => {
-            const [name, url] = line.split(' - ');
-            let iconClass = '';
-            if (name.toLowerCase().includes('linkedin')) {
-              iconClass = 'fab fa-linkedin';
-            } else if (name.toLowerCase().includes('github')) {
-              iconClass = 'fab fa-github';
-            } else if (name.toLowerCase().includes('portfolio')) {
-              iconClass = 'fas fa-globe';
-            }
-            return { name, url, iconClass };
-          });
-          setLinks(parsedLinks);
+    if (rawContent) {
+      const lines = rawContent.split('\n').filter(line => line.trim() !== '');
+      const parsedLinks = lines.map(line => {
+        // Handle "Name - URL" or "Name: URL"
+        let name, url;
+        if (line.includes(' - ')) {
+          [name, url] = line.split(' - ');
+        } else if (line.includes(': ')) {
+          [name, url] = line.split(': ');
+        } else {
+          return null; // Skip invalid format
         }
 
-      });
-  }, []);
+        if (!name || !url) return null;
+
+        let iconClass = 'fas fa-link'; // Default icon
+        if (name.toLowerCase().includes('linkedin')) {
+          iconClass = 'fab fa-linkedin';
+        } else if (name.toLowerCase().includes('github')) {
+          iconClass = 'fab fa-github';
+        } else if (name.toLowerCase().includes('portfolio') || name.toLowerCase().includes('web')) {
+          iconClass = 'fas fa-globe';
+        }
+
+        return { name, url, iconClass };
+      }).filter(Boolean); // Remove nulls
+      setLinks(parsedLinks);
+    }
+  }, [data]);
 
   return (
     <div className="weblinks-container">

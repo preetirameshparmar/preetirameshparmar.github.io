@@ -1,0 +1,33 @@
+-- Create tables for local development
+
+CREATE TABLE IF NOT EXISTS sections (
+  id SERIAL PRIMARY KEY,
+  type VARCHAR(50) NOT NULL, -- 'text', 'image', 'mixed', 'project', 'experience', 'education'
+  title VARCHAR(255) NOT NULL,
+  content JSONB NOT NULL DEFAULT '{}',
+  "order" INTEGER DEFAULT 0,
+  is_visible BOOLEAN DEFAULT true,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS blogs (
+  id SERIAL PRIMARY KEY,
+  slug VARCHAR(255) UNIQUE NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  excerpt TEXT,
+  content TEXT, -- Markdown content
+  cover_image VARCHAR(255),
+  published_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS media (
+  id SERIAL PRIMARY KEY,
+  filename VARCHAR(255) NOT NULL,
+  url VARCHAR(255) NOT NULL,
+  mime_type VARCHAR(100),
+  size_bytes BIGINT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

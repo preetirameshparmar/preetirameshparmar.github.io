@@ -3,30 +3,29 @@
 import React, { useState, useEffect } from 'react';
 import './Skills.css';
 
-const Skills = () => {
+const Skills = ({ data }) => {
   const [skills, setSkills] = useState({});
 
   useEffect(() => {
-    fetch('/skills.txt')
-      .then(response => response.text())
-      .then(text => {
-        const contentMatch = text.match(/\[Content\]\n(.*)/s);
+    let rawContent = '';
+    if (typeof data === 'string') {
+      rawContent = data;
+    } else if (data?.raw) {
+      rawContent = data.raw;
+    }
 
-
-        if (contentMatch) {
-          const lines = contentMatch[1].split('\n').filter(line => line.trim() !== '');
-          const parsedSkills = lines.reduce((acc, line) => {
-            const [category, skillList] = line.split(': ');
-            if (category && skillList) {
-              acc[category.trim()] = skillList.trim().split(', ');
-            }
-            return acc;
-          }, {});
-          setSkills(parsedSkills);
+    if (rawContent) {
+      const lines = rawContent.split('\n').filter(line => line.trim() !== '');
+      const parsedSkills = lines.reduce((acc, line) => {
+        const [category, skillList] = line.split(': ');
+        if (category && skillList) {
+          acc[category.trim()] = skillList.trim().split(', ');
         }
-
-      });
-  }, []);
+        return acc;
+      }, {});
+      setSkills(parsedSkills);
+    }
+  }, [data]);
 
   return (
     <div className="skills-container">
@@ -39,7 +38,7 @@ const Skills = () => {
               {skillList.map((skill, i) => (
                 <span className="skill-item" key={i}>{skill}</span>
               ))
-            }
+              }
             </div>
           </div>
         ))}

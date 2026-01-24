@@ -1,0 +1,46 @@
+name: Deploy PR Preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build-deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Project
+        if: github.event.action != 'closed'
+        run: npm run build
+        env:
+          # Ensure the app knows it is in a subdirectory for this PR
+          # The rossjrw/pr-preview-action uses a specific path structure: /pr-preview/pr-<number>
+          PUBLIC_URL: /pr-preview/pr-${{ github.event.number }}
+          
+          # Supabase vars are required for the build to pass (even if data fetching needs them at runtime)
+          REACT_APP_BACKEND_MODE: supabase
+          REACT_APP_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          REACT_APP_GA_TRACKING_ID: ${{ secrets.REACT_APP_GA_TRACKING_ID }}
+
+      - name: Deploy Preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./build
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
