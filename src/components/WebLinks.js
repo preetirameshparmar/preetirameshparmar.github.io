@@ -1,35 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './WebLinks.css';
 
-const WebLinks = () => {
+const WebLinks = ({ data }) => {
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
-    fetch('/web.txt')
-      .then(response => response.text())
-      .then(text => {
-        const contentMatch = text.match(/\[Content\]\n(.*)/s);
-
-
-        if (contentMatch) {
-          const lines = contentMatch[1].split('\n').filter(line => line.trim() !== '');
-          const parsedLinks = lines.map(line => {
-            const [name, url] = line.split(' - ');
-            let iconClass = '';
-            if (name.toLowerCase().includes('linkedin')) {
-              iconClass = 'fab fa-linkedin';
-            } else if (name.toLowerCase().includes('github')) {
-              iconClass = 'fab fa-github';
-            } else if (name.toLowerCase().includes('portfolio')) {
-              iconClass = 'fas fa-globe';
-            }
-            return { name, url, iconClass };
-          });
-          setLinks(parsedLinks);
+    if (data?.raw) {
+      const lines = data.raw.split('\n').filter(line => line.trim() !== '');
+      const parsedLinks = lines.map(line => {
+        const [name, url] = line.split(' - ');
+        let iconClass = '';
+        if (name && name.toLowerCase().includes('linkedin')) {
+          iconClass = 'fab fa-linkedin';
+        } else if (name && name.toLowerCase().includes('github')) {
+          iconClass = 'fab fa-github';
+        } else if (name && name.toLowerCase().includes('portfolio')) {
+          iconClass = 'fas fa-globe';
         }
-
+        return { name, url, iconClass };
       });
-  }, []);
+      setLinks(parsedLinks);
+    }
+  }, [data]);
 
   return (
     <div className="weblinks-container">
