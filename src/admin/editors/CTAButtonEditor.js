@@ -7,6 +7,12 @@ const CTAButtonEditor = ({ control, register }) => {
         name: "content.cta_buttons"
     });
 
+    const deleteItem = (index) => {
+        if (window.confirm("Delete this button?")) {
+            remove(index);
+        }
+    };
+
     return (
         <div className="array-editor">
             {fields.map((item, index) => (
@@ -21,7 +27,7 @@ const CTAButtonEditor = ({ control, register }) => {
                         placeholder="URL"
                         style={{ flex: 2 }}
                     />
-                    <button type="button" onClick={() => remove(index)} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.5rem', borderRadius: '4px', cursor: 'pointer' }}>
+                    <button type="button" onClick={() => deleteItem(index)} style={{ background: '#ef4444', color: 'white', border: 'none', padding: '0.5rem', borderRadius: '4px', cursor: 'pointer' }}>
                         ✕
                     </button>
                 </div>

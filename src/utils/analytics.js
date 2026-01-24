@@ -2,11 +2,11 @@
 export const GA_TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID || 'G-LE81C3MLMD';
 
 // Debug logging
-console.log('GA Tracking ID:', GA_TRACKING_ID);
+// console.log('GA Tracking ID:', GA_TRACKING_ID);
 
 // Initialize GA
 export const initializeGA = () => {
-  console.log('Initializing GA with ID:', GA_TRACKING_ID);
+  // console.log('Initializing GA with ID:', GA_TRACKING_ID);
   if (typeof window !== 'undefined' && GA_TRACKING_ID && GA_TRACKING_ID !== 'undefined') {
     // Load gtag script
     const script = document.createElement('script');
@@ -137,13 +137,13 @@ export const trackError = (errorMessage, location) => {
 // Scroll tracking hook (add to App.js)
 export const useScrollTracking = () => {
   let scrolled25 = false;
-  let scrolled50 = false; 
+  let scrolled50 = false;
   let scrolled75 = false;
   let scrolled90 = false;
 
   const handleScroll = () => {
     const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    
+
     if (scrollPercent >= 25 && !scrolled25) {
       trackScrollDepth(25);
       scrolled25 = true;
@@ -175,7 +175,7 @@ export const useTimeTracking = () => {
 
   const checkTimeOnSite = () => {
     const timeSpent = (Date.now() - startTime) / 1000;
-    
+
     if (timeSpent >= 30 && !tracked30s) {
       trackTimeOnSite(30);
       tracked30s = true;

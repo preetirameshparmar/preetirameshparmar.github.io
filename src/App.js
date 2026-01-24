@@ -65,7 +65,7 @@ function MainSite() {
         </div>
         <nav className="app-nav">
           <a href="#personal">Home</a>
-          {sections.filter(s => s.type !== 'personal' && s.is_visible).map(s => (
+          {sections.filter(s => s.type !== 'personal' && s.is_visible !== false).map(s => (
             <a key={s.id} href={`#${s.title.toLowerCase().replace(/\s/g, '-')}`}>{s.title}</a>
           ))}
         </nav>
@@ -80,7 +80,7 @@ function MainSite() {
           </section>
         )}
 
-        {sections.filter(s => s.type !== 'personal' && s.is_visible).map(section => {
+        {sections.filter(s => s.type !== 'personal' && s.is_visible !== false).map(section => {
           const Component = componentMap[section.type];
           if (!Component) return null;
           return (

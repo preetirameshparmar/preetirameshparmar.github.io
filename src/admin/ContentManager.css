@@ -79,3 +79,25 @@ th {
     background-color: #4f46e5;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .content-manager {
+        padding: 1rem;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    /* Force table to scroll horizontally if needed or stack */
+    .sections-list {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 600px;
+        /* Ensure table keeps shape and scrolls */
+    }
+}

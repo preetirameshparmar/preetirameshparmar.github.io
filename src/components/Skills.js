@@ -7,8 +7,15 @@ const Skills = ({ data }) => {
   const [skills, setSkills] = useState({});
 
   useEffect(() => {
-    if (data?.raw) {
-      const lines = data.raw.split('\n').filter(line => line.trim() !== '');
+    let rawContent = '';
+    if (typeof data === 'string') {
+      rawContent = data;
+    } else if (data?.raw) {
+      rawContent = data.raw;
+    }
+
+    if (rawContent) {
+      const lines = rawContent.split('\n').filter(line => line.trim() !== '');
       const parsedSkills = lines.reduce((acc, line) => {
         const [category, skillList] = line.split(': ');
         if (category && skillList) {

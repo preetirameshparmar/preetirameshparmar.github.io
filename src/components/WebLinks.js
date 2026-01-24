@@ -5,20 +5,39 @@ const WebLinks = ({ data }) => {
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
-    if (data?.raw) {
-      const lines = data.raw.split('\n').filter(line => line.trim() !== '');
+    let rawContent = '';
+    if (typeof data === 'string') {
+      rawContent = data;
+    } else if (data?.raw) {
+      rawContent = data.raw;
+    }
+
+    if (rawContent) {
+      const lines = rawContent.split('\n').filter(line => line.trim() !== '');
       const parsedLinks = lines.map(line => {
-        const [name, url] = line.split(' - ');
-        let iconClass = '';
-        if (name && name.toLowerCase().includes('linkedin')) {
+        // Handle "Name - URL" or "Name: URL"
+        let name, url;
+        if (line.includes(' - ')) {
+          [name, url] = line.split(' - ');
+        } else if (line.includes(': ')) {
+          [name, url] = line.split(': ');
+        } else {
+          return null; // Skip invalid format
+        }
+
+        if (!name || !url) return null;
+
+        let iconClass = 'fas fa-link'; // Default icon
+        if (name.toLowerCase().includes('linkedin')) {
           iconClass = 'fab fa-linkedin';
-        } else if (name && name.toLowerCase().includes('github')) {
+        } else if (name.toLowerCase().includes('github')) {
           iconClass = 'fab fa-github';
-        } else if (name && name.toLowerCase().includes('portfolio')) {
+        } else if (name.toLowerCase().includes('portfolio') || name.toLowerCase().includes('web')) {
           iconClass = 'fas fa-globe';
         }
+
         return { name, url, iconClass };
-      });
+      }).filter(Boolean); // Remove nulls
       setLinks(parsedLinks);
     }
   }, [data]);

@@ -17,13 +17,19 @@ const DynamicListEditor = ({ control, register, type }) => {
         }
     };
 
+    const deleteItem = (index) => {
+        if (window.confirm("Are you sure you want to delete this item? This action cannot be undone.")) {
+            remove(index);
+        }
+    };
+
     return (
         <div className="array-editor">
             {fields.map((item, index) => (
                 <div key={item.id} className="array-item-card" style={{ border: '1px solid #ddd', padding: '1rem', marginBottom: '1rem', borderRadius: '8px', background: '#fafafa' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                         <h5 style={{ margin: 0 }}>Item #{index + 1}</h5>
-                        <button type="button" onClick={() => remove(index)} style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer' }}>Delete</button>
+                        <button type="button" onClick={() => deleteItem(index)} style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer' }}>Delete</button>
                     </div>
 
                     {/* Fields for Experience / Education based on Type */}

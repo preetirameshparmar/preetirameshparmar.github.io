@@ -1,6 +1,6 @@
 // src/admin/SectionEditor.js
 import React, { useEffect, useState } from 'react';
-import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form'; // eslint-disable-line no-unused-vars
 import { backend } from '../services/backend';
 import './SectionEditor.css';
 import CTAButtonEditor from './editors/CTAButtonEditor';
