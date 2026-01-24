@@ -1,40 +1,7 @@
---
--- PostgreSQL database dump
---
-
-\restrict ektgKf8PIawoJcOt2LhzSrnOeCyDuYhDXgLTpgpY1JdnE84Ur7OuumvEtGkWZj0
-
--- Dumped from database version 15.15
--- Dumped by pg_dump version 15.15
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- Data for Name: blogs; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: media; Type: TABLE DATA; Schema: public; Owner: -
---
-
+-- Data for Name: media
 INSERT INTO public.media (id, filename, url, mime_type, size_bytes, created_at) VALUES (1, '1769232473868-81484807-WorkEx_Local.png', '/uploads/1769232473868-81484807-WorkEx_Local.png', 'image/png', 247584, '2026-01-24 05:27:53.879347+00');
 
-
---
--- Data for Name: sections; Type: TABLE DATA; Schema: public; Owner: -
---
-
+-- Data for Name: sections
 INSERT INTO public.sections (id, type, title, content, "order", is_visible, created_at, updated_at) VALUES (11, 'skills', 'Skills', '{"raw": "Digital Marketing: Meta Ads, Google Ads,  Funnel Marketing, WordPress, Social Media Marketing, Email Marketing, A/B Testing (Ads, Landing Pages, Emails), LinkedIn Ads, SEO (Search Engine Optimization)\nTools: Meta Ads Manager, Meta Business Suite, Google Ads Editor, Google Analytics 4 (GA4), Google Tag Manager, Google Search Console, Canva, Adobe Photoshop, Later, Metricool, Hootsuite, MailChimp, LinkedIn Campaign Manager, Ahrefs, Ubersuggest, Screaming Frog, Moz\nSoft Skills: Leadership, Communication, Creativity, Analytical Thinking, Problem Solving, Collaboration, Adaptability, Empathy"}', 2, true, '2026-01-24 00:30:56.947219+00', '2026-01-24 00:30:56.947219+00');
 INSERT INTO public.sections (id, type, title, content, "order", is_visible, created_at, updated_at) VALUES (8, 'education', 'Education', '{"raw": "", "items": [{"end": "Aug 2025", "city": "Mississauga, Ontario", "start": "Jan 2025", "degree": "Marketing Management", "institution": "Sheridan College"}, {"end": "Dec 2023", "city": "Toronto, Canada", "start": "May 2023", "degree": "Management and Leadership Development", "institution": "Conestoga College"}, {"end": "2011", "city": "Mumbai, India", "start": "2009", "degree": "Bachelors of Management Studies", "institution": "Mumbai University"}]}', 4, NULL, '2026-01-24 00:30:56.939136+00', '2026-01-24 05:55:55.520373+00');
 INSERT INTO public.sections (id, type, title, content, "order", is_visible, created_at, updated_at) VALUES (12, 'links', 'Web Profiles', '{"raw": "LinkedIn - https://linkedin.com/in/preetirparmar\nPortfolio - https://preetirameshparmar.github.io", "linkedin - https": "//linkedin.com/in/preetirparmar", "portfolio - https": "//preetirameshparmar.github.io"}', 100, NULL, '2026-01-24 00:30:56.949139+00', '2026-01-24 05:55:18.231596+00');
@@ -43,31 +10,7 @@ INSERT INTO public.sections (id, type, title, content, "order", is_visible, crea
 INSERT INTO public.sections (id, type, title, content, "order", is_visible, created_at, updated_at) VALUES (9, 'experience', 'Work Experience', '{"raw": "", "items": [{"end": "Present", "city": "Remote (Ontario)", "start": "Apr 2025", "company_name": "Gosai Law", "on_field_work": "• Helping with SEO strategy, blog optimization, and performance tracking (one blog ranked Page 1 on Google in June 2025)\n• Building and updating WordPress pages (including on-page SEO and formatting legal blogs)\n• Planning and analyzing Mailchimp campaigns with 39.9% open rate and 1.3% CTR\n• Instagram growth: +356 followers (Jan–June), TikTok growth: +92 followers (3.11% increase in 7 days)\n• Highest-performing reel: 2401 views, 27 shares, 107 likes in July 2025"}, {"end": "Present", "city": "Remote (Ontario)", "start": "Mar 2025", "company_name": "4teentherapy", "on_field_work": "• Social Media Strategist - Plan Content, Work on Creatives on Canva and Photoshop, Post according to Content Calendar\n• Create strategy for Instagram, Facebook and TikTok\n• Goal: To get teen clients through organic posting\n• Organic posting helped my client get two teen clients in two months"}, {"end": "Jan 2025", "city": "Remote (Ontario)", "start": "Dec 2024", "company_name": "Footwear Brand", "on_field_work": "• Achieved 16.9x ROAS in 1 month through video, carousel, and UGC ads (through constant optimization and A/B testing)\n• Budget: $1.1K | Sales: 900 | Conversion Value: $19.2K"}, {"end": "Jan 2025", "city": "Remote (Ontario)", "start": "Oct 2024", "company_name": "Cloud Nine Views", "on_field_work": "• Social Media Strategist - Plan content, find relevant videos from shared folder of drone captures by Client\n• Through tavel storytelling and community building I helped my Client gain 500 new followers in 59 days\n• Gaining Followers was the main goal"}, {"end": "Oct 2025", "city": "Remote (Ontario)", "start": "Aug 2024", "company_name": "Dentist", "on_field_work": "• Ran lead gen ads for high-ticket dental makeovers | Cost per lead: $4.40\n• Total leads: 681 | Budget: $2.2K"}, {"end": "May 2023", "city": "Mumbai, India", "start": "Jul 2022", "company_name": "Neon Digital Media", "on_field_work": "• Developed, executed & optimized paid advertising campaigns across Meta (FB, IG) & LinkedIn.\n• Reduced Cost-per-Acquisition (CPA) by 6.67% & boosted conversion rates by 5%.\n• A/B tested 60+ ad creatives, leading to an 8.33% increase in audience engagement\n• Collaborated with cross-functional teams (design, sales) to implement campaign strategies that resulted in increase in ROAS by 1.10% exceeding client targets.\n• Monitored and analyzed campaign data to identify actionable insights, optimize campaign performance, and provide UI/UX recommendations."}, {"end": "Jun 2022", "city": "Remoce, Mumbai, India", "start": "Mar 2022", "company_name": "Amrutam: Ayurvedic Lifestyle & Wellness Brand", "on_field_work": "• Led the development and execution of data-driven Meta and Google Ads campaigns, achieving a 1.75% increase in ROAS and exceeding revenue targets by $411 within 3 months.\n• Developed and implemented an email marketing strategy that converted leads into 35 orders.\n• Executed an influencer marketing outreach campaign that generated 5 orders within 9 days.\n• Created and implemented social media marketing strategies that increased engagement by 3%"}]}', 1, NULL, '2026-01-24 00:30:56.941548+00', '2026-01-24 04:03:40.542531+00');
 INSERT INTO public.sections (id, type, title, content, "order", is_visible, created_at, updated_at) VALUES (13, 'hidden', 'Pricing', '{"raw": "", "items": [{"price": "CAD$750/Month", "title": "Social Media Management", "details": "– 3 posts per week (mix of reels and static posts)\n– monthly content planning and content calendar\n– caption writing and hashtag research\n– basic community management (replying to comments)\n– monthly performance report with insights and recommendations"}]}', 3, true, '2026-01-24 05:54:23.628042+00', '2026-01-24 06:03:07.063947+00');
 
-
---
--- Name: blogs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
+-- Reset sequences
 SELECT pg_catalog.setval('public.blogs_id_seq', 1, false);
-
-
---
--- Name: media_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
 SELECT pg_catalog.setval('public.media_id_seq', 1, true);
-
-
---
--- Name: sections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
 SELECT pg_catalog.setval('public.sections_id_seq', 13, true);
-
-
---
--- PostgreSQL database dump complete
---
-
-\unrestrict ektgKf8PIawoJcOt2LhzSrnOeCyDuYhDXgLTpgpY1JdnE84Ur7OuumvEtGkWZj0
-

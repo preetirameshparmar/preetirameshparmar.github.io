@@ -47,12 +47,15 @@ CREATE POLICY "Public Read Blogs" ON blogs FOR SELECT USING (true);
 CREATE POLICY "Public Read Media" ON media FOR SELECT USING (true);
 
 -- Admin Write Policies (Strict)
--- REPLACE 'YOUR_UUID_HERE' with your actual Supabase User ID
-CREATE POLICY "Admin Write Sections" ON sections FOR ALL USING (auth.uid() = 'YOUR_UUID_HERE');
-CREATE POLICY "Admin Write Blogs" ON blogs FOR ALL USING (auth.uid() = 'YOUR_UUID_HERE');
-CREATE POLICY "Admin Write Media" ON media FOR ALL USING (auth.uid() = 'YOUR_UUID_HERE');
+-- Admin Write Policies (Strict)
+-- IMPORTANT: To enable writing, you must uncomment these lines and replace '00000000-0000-0000-0000-000000000000' with your actual Supabase User UUID.
+-- You can find your UUID in the Supabase Dashboard -> Authentication -> Users.
 
--- Storage Bucket Setup (Conceptual - usually done via UI or API, but can be scripted if extensions enabled)
+-- CREATE POLICY "Admin Write Sections" ON sections FOR ALL USING (auth.uid() = '00000000-0000-0000-0000-000000000000'::uuid);
+-- CREATE POLICY "Admin Write Blogs" ON blogs FOR ALL USING (auth.uid() = '00000000-0000-0000-0000-000000000000'::uuid);
+-- CREATE POLICY "Admin Write Media" ON media FOR ALL USING (auth.uid() = '00000000-0000-0000-0000-000000000000'::uuid);
+
+-- Storage Bucket Setup (Conceptual - usually done via UI or API)
 -- insert into storage.buckets (id, name, public) values ('media', 'media', true);
 -- create policy "Public Access" on storage.objects for select using ( bucket_id = 'media' );
--- create policy "Admin Upload" on storage.objects for insert using ( bucket_id = 'media' and auth.uid() = 'YOUR_UUID_HERE' );
+-- create policy "Admin Upload" on storage.objects for insert using ( bucket_id = 'media' and auth.uid() = '00000000-0000-0000-0000-000000000000'::uuid );
