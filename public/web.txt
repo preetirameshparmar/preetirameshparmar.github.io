@@ -1,9 +1,0 @@
-[Title]
-Web Profiles
-
-[Order]
-5
-
-[Content]
-LinkedIn - https://linkedin.com/in/preetirparmar
-Portfolio - https://preetirameshparmar.github.io
