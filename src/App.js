@@ -1,7 +1,7 @@
 // src/App.js
 
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Personal from './components/Personal';
 import Education from './components/Education';
 import WorkExperience from './components/WorkExperience';
@@ -79,6 +79,14 @@ function MainSite() {
     return s.is_visible !== false;
   });
 
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="App">
       <header className="app-header">
@@ -86,10 +94,13 @@ function MainSite() {
           <h2>My Portfolio</h2>
         </div>
         <nav className="app-nav">
-          <a href="#personal">Home</a>
-          {visibleSections.map(s => (
-            <a key={s.id} href={`#${s.title.toLowerCase().replace(/\s/g, '-')}`}>{s.title}</a>
-          ))}
+          <a href="#personal" onClick={(e) => scrollToSection(e, 'personal')}>Home</a>
+          {visibleSections.map(s => {
+            const id = s.title.toLowerCase().replace(/\s/g, '-');
+            return (
+              <a key={s.id} href={`#${id}`} onClick={(e) => scrollToSection(e, id)}>{s.title}</a>
+            );
+          })}
         </nav>
         <button onClick={toggleTheme} className="theme-toggle">
           {theme === 'light' ? <i className="fas fa-moon"></i> : <i className="fas fa-sun"></i>}
@@ -117,11 +128,8 @@ function MainSite() {
 }
 
 function App() {
-  // Support for PR Previews (subdirectories) and Production (root)
-  const basename = process.env.PUBLIC_URL || '/';
-
   return (
-    <Router basename={basename}>
+    <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
 

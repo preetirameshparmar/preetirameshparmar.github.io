@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Single Page Apps for GitHub Pages</title>
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafrex/spa-github-pages
-      // This script takes the current url and converts the path and query
-      // string into just a query string, and then redirects the browser
-      // to the new url with only a query string and hash fragment,
-      // e.g. https://www.foo.bar/1/2/3?a=b&c=d#qwe becomes
-      // https://www.foo.bar/?p=/1/2/3&q=a=b%26c=d&h=qwe
-      var l = window.location;
-      
-      // Dynamic Segment Count Logic
-      // Default to 0 for Root Site (username.github.io)
-      var segmentCount = 0; 
 
-      // If we are in a PR Preview (e.g. /pr-preview/pr-17/...)
-      var pathSegments = l.pathname.split('/');
-      if (pathSegments.length > 2 && pathSegments[1] === 'pr-preview') {
-          segmentCount = 2; // Keep /pr-preview/pr-XX
-      } else if (l.hostname.indexOf('github.io') > -1 && l.pathname.split('/').length > 1 && l.pathname.split('/')[1] !== '') {
-         // Handle case where project pages might be used in future (e.g. /repo-name)
-         // But for now, since it is a User Page, assume root unless pr-preview.
-         // segmentCount = 1; // Uncomment if this moves to a Project Page repo
-      }
+<head>
+  <meta charset="utf-8">
+  <title>Single Page Apps for GitHub Pages</title>
+  <script type="text/javascript">
+    // 404 Redirection for HashRouter Support
+    // This script detects deep links (e.g. /admin) that GitHub Pages 404s on,
+    // and redirects them to the HashRouter equivalent (e.g. /#/admin).
 
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
-        l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-    </script>
-  </head>
-  <body>
-  </body>
+    var l = window.location;
+
+    // Dynamic Segment Count Logic (to support PR Previews in subdirectories)
+    var segmentCount = 0;
+    var pathSegments = l.pathname.split('/');
+    if (pathSegments.length > 2 && pathSegments[1] === 'pr-preview') {
+      segmentCount = 2; // Keep /pr-preview/pr-XX
+    }
+
+    var basePath = l.pathname.split('/').slice(0, 1 + segmentCount).join('/');
+    var route = l.pathname.slice(1).split('/').slice(segmentCount).join('/');
+
+    // Redirect to Hash URL
+    // e.g. /pr-preview/pr-17/admin -> /pr-preview/pr-17/#/admin
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      basePath + '/#/' + route + l.search + l.hash
+    );
+  </script>
+</head>
+
+<body>
+</body>
+
 </html>

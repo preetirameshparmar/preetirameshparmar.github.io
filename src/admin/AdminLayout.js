@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { backend } from '../services/backend';
 import './AdminLayout.css';
 
 const AdminLayout = ({ children }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
             await backend.logout();
-            window.location.href = '/login';
+            navigate('/login');
         } catch (e) {
             console.error('Logout failed', e);
         }
@@ -35,10 +37,10 @@ const AdminLayout = ({ children }) => {
                 </div>
 
                 <nav>
-                    <a href="/admin/sections" onClick={closeMenu}>Sections</a>
-                    <a href="/admin/blogs" onClick={closeMenu}>Blogs</a>
-                    <a href="/admin/media" onClick={closeMenu}>Media</a>
-                    <a href="/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>View Site</a>
+                    <Link to="/admin/sections" onClick={closeMenu}>Sections</Link>
+                    <Link to="/admin/blogs" onClick={closeMenu}>Blogs</Link>
+                    <Link to="/admin/media" onClick={closeMenu}>Media</Link>
+                    <Link to="/" target="_blank" rel="noopener noreferrer" onClick={closeMenu}>View Site</Link>
                 </nav>
                 <button onClick={handleLogout} className="logout-btn">
                     Sign Out
