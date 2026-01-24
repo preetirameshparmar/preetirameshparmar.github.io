@@ -15,6 +15,8 @@ const DynamicListEditor = ({ control, register, setValue, type }) => {
             append({ institution: '', degree: '', start: '', end: '', city: '' });
         } else if (type === 'project') {
             append({ name: '', description: '', image: '', tags: '', cta: '' });
+        } else if (type === 'hidden' || type === 'pricing') {
+            append({ title: '', price: '', details: '' });
         }
     };
 
@@ -111,6 +113,24 @@ const DynamicListEditor = ({ control, register, setValue, type }) => {
                             <div>
                                 <label>CTA Button Label</label>
                                 <input {...register(`content.items.${index}.cta`)} placeholder="e.g. More..." />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Specific for Hidden / Pricing Sections */}
+                    {(type === 'hidden' || type === 'pricing') && (
+                        <div className="grid-fields" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div>
+                                <label>Service / Item Title</label>
+                                <input {...register(`content.items.${index}.title`)} placeholder="e.g. Social Media Management" />
+                            </div>
+                            <div>
+                                <label>Price / Cost</label>
+                                <input {...register(`content.items.${index}.price`)} placeholder="e.g. $750 / month" />
+                            </div>
+                            <div>
+                                <label>Details / Includes (Bullets)</label>
+                                <textarea {...register(`content.items.${index}.details`)} rows={5} placeholder="Includes:&#10;- 3 posts per week..." />
                             </div>
                         </div>
                     )}

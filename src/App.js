@@ -1,13 +1,14 @@
 // src/App.js
 
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Personal from './components/Personal';
 import Education from './components/Education';
 import WorkExperience from './components/WorkExperience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import WebLinks from './components/WebLinks';
+import HiddenSection from './components/HiddenSection';
 import Login from './admin/Login';
 import AdminLayout from './admin/AdminLayout';
 import ContentManager from './admin/ContentManager';
@@ -21,6 +22,11 @@ function MainSite() {
   // Sections state logic - currently still uses files or backend?
   // Transition: Let's try to load from backend if available, fallback to empty
   const [sections, setSections] = useState([]);
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const visibilityParam = searchParams.get('visibility');
+  const allowedHiddenSections = visibilityParam ? visibilityParam.toLowerCase().split(',') : [];
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -52,10 +58,26 @@ function MainSite() {
     'experience': WorkExperience,
     'project': Projects,
     'skills': Skills,
-    'links': WebLinks
+    'links': WebLinks,
+    'hidden': HiddenSection,
+    'pricing': HiddenSection
   };
 
   const personalSection = sections.find(s => s.type === 'personal');
+
+  // Filter Logic
+  const visibleSections = sections.filter(s => {
+    if (s.type === 'personal') return false;
+
+    const isHiddenType = s.type === 'hidden' || s.type === 'pricing';
+
+    if (isHiddenType) {
+      const slug = s.title.toLowerCase();
+      return allowedHiddenSections.includes(slug);
+    }
+
+    return s.is_visible !== false;
+  });
 
   return (
     <div className="App">
@@ -65,7 +87,7 @@ function MainSite() {
         </div>
         <nav className="app-nav">
           <a href="#personal">Home</a>
-          {sections.filter(s => s.type !== 'personal' && s.is_visible !== false).map(s => (
+          {visibleSections.map(s => (
             <a key={s.id} href={`#${s.title.toLowerCase().replace(/\s/g, '-')}`}>{s.title}</a>
           ))}
         </nav>
@@ -80,12 +102,12 @@ function MainSite() {
           </section>
         )}
 
-        {sections.filter(s => s.type !== 'personal' && s.is_visible !== false).map(section => {
-          const Component = componentMap[section.type];
+        {visibleSections.map(section => {
+          const Component = componentMap[section.type] || componentMap['hidden'];
           if (!Component) return null;
           return (
             <section id={section.title.toLowerCase().replace(/\s/g, '-')} key={section.id}>
-              <Component data={section.content} />
+              <Component data={section.content} title={section.title} />
             </section>
           );
         })}

@@ -19,6 +19,7 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
             setValue('title', existingData.title);
             setValue('type', existingData.type);
             setValue('order', existingData.order);
+            setValue('is_visible', existingData.is_visible);
 
             // Handle content JSON vs raw
             if (['text', 'skills', 'links'].includes(existingData.type)) {
@@ -34,7 +35,7 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
             } else if (['personal'].includes(existingData.type)) {
                 // Personal: Populate fields directly
                 setValue('content', existingData.content);
-            } else if (['experience', 'education', 'project'].includes(existingData.type)) {
+            } else if (['experience', 'education', 'project', 'hidden', 'pricing'].includes(existingData.type)) {
                 // List types: Populate content.items array
                 const items = existingData.content?.items || [];
                 setValue('content.items', items);
@@ -117,12 +118,25 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
                         <option value="project">Projects (Grid)</option>
                         <option value="skills">Skills</option>
                         <option value="links">Web Links</option>
+                        <option value="hidden">Hidden Section (Generic)</option>
                     </select>
                 </div>
 
                 <div className="form-row">
                     <label>Order</label>
                     <input type="number" {...register('order')} />
+                </div>
+
+                <div className="form-row">
+                    <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontWeight: 500, color: '#374151' }}>
+                        <input
+                            type="checkbox"
+                            {...register('is_visible')}
+                            id="is_visible_check"
+                            style={{ width: 'auto', marginRight: '0.5rem', transform: 'scale(1.2)' }}
+                        />
+                        Show in Navigation Menu
+                    </label>
                 </div>
 
 
@@ -153,8 +167,8 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
                     </div>
                 )}
 
-                {/* Dynamic Lists (Experience, Education, Projects) */}
-                {['experience', 'education', 'project'].includes(type) && (
+                {/* Dynamic Lists (Experience, Education, Projects, Hidden) */}
+                {['experience', 'education', 'project', 'hidden'].includes(type) && (
                     <div className="structured-editor">
                         <h4>{type.charAt(0).toUpperCase() + type.slice(1)} Items</h4>
                         <DynamicListEditor control={control} register={register} setValue={setValue} type={type} />
@@ -170,7 +184,7 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
                 )}
 
                 {/* JSON Fallback - Only for unknown types now */}
-                {(!['text', 'personal', 'experience', 'education', 'project', 'skills', 'links'].includes(type)) && (
+                {(!['text', 'personal', 'experience', 'education', 'project', 'skills', 'links', 'hidden'].includes(type)) && (
                     <div className="json-editor">
                         <p>JSON Editor (Edit raw data for structure)</p>
                         <textarea {...register('content', {
