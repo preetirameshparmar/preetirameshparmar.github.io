@@ -42,7 +42,9 @@ const ContentManager = () => {
         <div className="content-manager">
             <div className="header">
                 <h2>Content Sections</h2>
-                <button onClick={handleCreate}>+ New Section</button>
+                {!editingSection && !isCreating && (
+                    <button onClick={handleCreate}>+ New Section</button>
+                )}
             </div>
 
             {(editingSection || isCreating) ? (

@@ -1,0 +1,91 @@
+import React from 'react';
+import { useFieldArray } from 'react-hook-form';
+
+const DynamicListEditor = ({ control, register, type }) => {
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "content.items"
+    });
+
+    const addItem = () => {
+        if (type === 'experience') {
+            append({ company_name: '', start: '', end: '', city: '', on_field_work: '' });
+        } else if (type === 'education') {
+            append({ institution: '', degree: '', start: '', end: '', city: '' });
+        } else if (type === 'project') {
+            append({ name: '', description: '', image: '', tags: '', cta: '' });
+        }
+    };
+
+    return (
+        <div className="array-editor">
+            {fields.map((item, index) => (
+                <div key={item.id} className="array-item-card" style={{ border: '1px solid #ddd', padding: '1rem', marginBottom: '1rem', borderRadius: '8px', background: '#fafafa' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                        <h5 style={{ margin: 0 }}>Item #{index + 1}</h5>
+                        <button type="button" onClick={() => remove(index)} style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer' }}>Delete</button>
+                    </div>
+
+                    {/* Fields for Experience / Education based on Type */}
+                    {(type === 'experience' || type === 'education') && (
+                        <div className="grid-fields" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                            <div>
+                                <label>{type === 'experience' ? 'Company' : 'Institution'}</label>
+                                <input {...register(`content.items.${index}.${type === 'experience' ? 'company_name' : 'institution'}`)} />
+                            </div>
+                            {type === 'education' && (
+                                <div>
+                                    <label>Degree</label>
+                                    <input {...register(`content.items.${index}.degree`)} />
+                                </div>
+                            )}
+                            <div>
+                                <label>City</label>
+                                <input {...register(`content.items.${index}.city`)} />
+                            </div>
+                            <div>
+                                <label>Start</label>
+                                <input {...register(`content.items.${index}.start`)} />
+                            </div>
+                            <div>
+                                <label>End</label>
+                                <input {...register(`content.items.${index}.end`)} />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Specific for Work Experience Details */}
+                    {type === 'experience' && (
+                        <div style={{ marginTop: '10px' }}>
+                            <label>Description / On Field Work (Bullets)</label>
+                            <textarea {...register(`content.items.${index}.on_field_work`)} rows={5} />
+                        </div>
+                    )}
+
+                    {/* Specific for Projects */}
+                    {type === 'project' && (
+                        <div className="grid-fields" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <input {...register(`content.items.${index}.name`)} placeholder="Project Name" />
+                            <textarea {...register(`content.items.${index}.description`)} placeholder="Description" rows={3} />
+                            <input {...register(`content.items.${index}.image`)} placeholder="Image URL / Media Path" />
+                            <input {...register(`content.items.${index}.tags`)} placeholder="Tech Stack / Tags (comma separated)" />
+                            <input {...register(`content.items.${index}.cta`)} placeholder="CTA (e.g. View Project: https://...)" />
+                        </div>
+                    )}
+
+                </div>
+            ))}
+
+            <button
+                type="button"
+                onClick={addItem}
+                className="add-btn"
+                style={{ background: '#e5e7eb', color: '#374151', border: 'none', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 500 }}
+            >
+                + Add Item
+            </button>
+        </div>
+    );
+};
+
+export default DynamicListEditor;
