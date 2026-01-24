@@ -117,8 +117,11 @@ function MainSite() {
 }
 
 function App() {
+  // Support for PR Previews (subdirectories) and Production (root)
+  const basename = process.env.PUBLIC_URL || '/';
+
   return (
-    <Router>
+    <Router basename={basename}>
       <Routes>
         <Route path="/login" element={<Login />} />
 
