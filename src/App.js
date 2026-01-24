@@ -11,6 +11,7 @@ import WebLinks from './components/WebLinks';
 import Login from './admin/Login';
 import AdminLayout from './admin/AdminLayout';
 import ContentManager from './admin/ContentManager';
+import BlogManager from './admin/BlogManager';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { backend } from './services/backend';
 import './App.css';
@@ -104,6 +105,7 @@ function App() {
             <AdminLayout>
               <Routes>
                 <Route path="sections" element={<ContentManager />} />
+                <Route path="blogs" element={<BlogManager />} />
                 <Route path="/" element={<Navigate to="sections" />} />
               </Routes>
             </AdminLayout>

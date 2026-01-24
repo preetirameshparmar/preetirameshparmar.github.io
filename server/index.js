@@ -37,6 +37,10 @@ const upload = multer({ storage: storage });
 
 // Routes
 
+app.get('/', (req, res) => {
+  res.json({ status: 'running', message: 'Local CMS API is active. Endpoints available at /api/sections, /api/blogs' });
+});
+
 // 1. Get All Sections
 app.get('/api/sections', async (req, res) => {
   try {
@@ -78,7 +82,49 @@ app.post('/api/sections', async (req, res) => {
   }
 });
 
-// 3. Upload Media
+
+// 3. Get All Blogs
+app.get('/api/blogs', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM blogs ORDER BY published_at DESC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// 4. Save Blog (Upsert)
+app.post('/api/blogs', async (req, res) => {
+  const { id, slug, title, excerpt, content, cover_image, published_at } = req.body;
+  try {
+    let query;
+    let values;
+
+    if (id) {
+      // Update
+      query = `
+        UPDATE blogs 
+        SET slug = $1, title = $2, excerpt = $3, content = $4, cover_image = $5, published_at = $6, updated_at = NOW()
+        WHERE id = $7 RETURNING *`;
+      values = [slug, title, excerpt, content, cover_image, published_at, id];
+    } else {
+      // Insert
+      query = `
+        INSERT INTO blogs (slug, title, excerpt, content, cover_image, published_at)
+        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+      values = [slug, title, excerpt, content, cover_image, published_at];
+    }
+
+    const result = await pool.query(query, values);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// 5. Upload Media
 app.post('/api/upload', upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });

@@ -21,14 +21,21 @@ export const saveSection = async (section) => {
 };
 
 export const getBlogs = async () => {
-    // Mock implementations for now or add endpoints to server
-    console.log('getBlogs not fully implemented in local server yet');
-    return [];
+    const response = await fetch(`${API_URL}/blogs`);
+    if (!response.ok) throw new Error('Failed to fetch blogs');
+    return response.json();
 };
 
 export const saveBlog = async (blog) => {
-    console.log('saveBlog not fully implemented in local server yet');
-    return blog;
+    const response = await fetch(`${API_URL}/blogs`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(blog),
+    });
+    if (!response.ok) throw new Error('Failed to save blog');
+    return response.json();
 };
 
 export const uploadMedia = async (file) => {

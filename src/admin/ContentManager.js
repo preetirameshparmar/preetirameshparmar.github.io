@@ -48,7 +48,7 @@ const ContentManager = () => {
             {(editingSection || isCreating) ? (
                 <SectionEditor
                     sectionId={editingSection?.id}
-                    // Pre-fill logic would go here or in Editor
+                    existingData={editingSection} // Pass the data!
                     onSave={handleSave}
                     onCancel={() => { setEditingSection(null); setIsCreating(false); }}
                 />
