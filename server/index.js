@@ -24,7 +24,7 @@ const pool = new Pool({
 // File Upload Configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.join(__dirname, '../public/uploads');
+    const uploadPath = path.join(__dirname, '../public/assets');
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
@@ -131,9 +131,9 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
   }
 
   const filename = req.file.filename;
-  // IMPORTANT: For local dev, we serve from /uploads (assuming public/ is static root)
-  // Since we are uploading to ../public/uploads, the URL is just /uploads/filename
-  const url = `/uploads/${filename}`;
+  // IMPORTANT: For local dev, we serve from /assets (assuming public/ is static root)
+  // Since we are uploading to ../public/assets, the URL is just /assets/filename
+  const url = `/assets/${filename}`;
 
   try {
     // Save metadata to media table

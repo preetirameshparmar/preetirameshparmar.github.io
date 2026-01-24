@@ -17,8 +17,13 @@ const Projects = ({ data }) => {
         if (entry.cta) {
           const ctaMatch = entry.cta.match(/^(.*?): (.*)/);
           if (ctaMatch) {
+            // Legacy: Label: URL
             entry.ctaLabel = ctaMatch[1].trim();
             entry.ctaUrl = ctaMatch[2].trim();
+          } else {
+            // New: Just Label -> Open Modal
+            entry.ctaLabel = entry.cta.trim();
+            entry.ctaUrl = null;
           }
         }
         return entry;
@@ -197,14 +202,20 @@ const Projects = ({ data }) => {
               ))}
             </div>
 
-            {project.ctaLabel && project.ctaUrl && (
+            {project.ctaLabel && (
               <div className="project-cta">
                 <a
-                  href={project.ctaUrl}
+                  href={project.ctaUrl || '#'}
                   className="project-cta-button"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackCTAClick(project.name, project.ctaLabel)}
+                  target={project.ctaUrl ? "_blank" : undefined}
+                  rel={project.ctaUrl ? "noopener noreferrer" : undefined}
+                  onClick={(e) => {
+                    trackCTAClick(project.name, project.ctaLabel);
+                    if (!project.ctaUrl) {
+                      e.preventDefault();
+                      openModal(project);
+                    }
+                  }}
                 >
                   {project.ctaLabel}
                 </a>

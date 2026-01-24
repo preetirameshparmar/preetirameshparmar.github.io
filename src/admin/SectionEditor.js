@@ -36,7 +36,6 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
                 setValue('content', existingData.content);
             } else if (['experience', 'education', 'project'].includes(existingData.type)) {
                 // List types: Populate content.items array
-                // If the data structure has 'items', use it. Else empty array.
                 const items = existingData.content?.items || [];
                 setValue('content.items', items);
             }
@@ -97,18 +96,7 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
         }
     };
 
-    const handleFileUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        try {
-            const url = await backend.uploadMedia(file);
-            // Insert URL into current cursor or field
-            // For now, just alert the URL to copy-paste or set a specific field
-            prompt("Image uploaded! Copy this URL:", url);
-        } catch (err) {
-            alert("Upload failed");
-        }
-    };
+
 
     return (
         <div className="section-editor">
@@ -169,7 +157,7 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
                 {['experience', 'education', 'project'].includes(type) && (
                     <div className="structured-editor">
                         <h4>{type.charAt(0).toUpperCase() + type.slice(1)} Items</h4>
-                        <DynamicListEditor control={control} register={register} type={type} />
+                        <DynamicListEditor control={control} register={register} setValue={setValue} type={type} />
                     </div>
                 )}
 
@@ -193,10 +181,7 @@ const SectionEditor = ({ sectionId, existingData, onSave, onCancel }) => {
                     </div>
                 )}
 
-                <div className="form-row">
-                    <label>Upload Image</label>
-                    <input type="file" onChange={handleFileUpload} />
-                </div>
+
 
                 <div className="actions">
                     <button type="submit" disabled={loading}>Save Section</button>

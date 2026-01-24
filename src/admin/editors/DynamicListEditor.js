@@ -1,7 +1,8 @@
 import React from 'react';
 import { useFieldArray } from 'react-hook-form';
+import { backend } from '../../services/backend';
 
-const DynamicListEditor = ({ control, register, type }) => {
+const DynamicListEditor = ({ control, register, setValue, type }) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: "content.items"
@@ -20,6 +21,20 @@ const DynamicListEditor = ({ control, register, type }) => {
     const deleteItem = (index) => {
         if (window.confirm("Are you sure you want to delete this item? This action cannot be undone.")) {
             remove(index);
+        }
+    };
+
+    const handleFileUpload = async (index, e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+            const url = await backend.uploadMedia(file);
+            // Update the specific field using setValue
+            // Format: content.items[index].image
+            setValue(`content.items.${index}.image`, url, { shouldDirty: true });
+        } catch (err) {
+            console.error(err);
+            alert("Upload failed");
         }
     };
 
@@ -71,11 +86,32 @@ const DynamicListEditor = ({ control, register, type }) => {
                     {/* Specific for Projects */}
                     {type === 'project' && (
                         <div className="grid-fields" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                            <input {...register(`content.items.${index}.name`)} placeholder="Project Name" />
-                            <textarea {...register(`content.items.${index}.description`)} placeholder="Description" rows={3} />
-                            <input {...register(`content.items.${index}.image`)} placeholder="Image URL / Media Path" />
-                            <input {...register(`content.items.${index}.tags`)} placeholder="Tech Stack / Tags (comma separated)" />
-                            <input {...register(`content.items.${index}.cta`)} placeholder="CTA (e.g. View Project: https://...)" />
+                            <div>
+                                <label>Project Name</label>
+                                <input {...register(`content.items.${index}.name`)} placeholder="Project Name" />
+                            </div>
+                            <div>
+                                <label>Description</label>
+                                <textarea {...register(`content.items.${index}.description`)} placeholder="Description" rows={3} />
+                            </div>
+                            <div>
+                                <label>Artifact (Image related to Project)</label>
+                                <div style={{ display: 'flex', gap: '10px' }}>
+                                    <input {...register(`content.items.${index}.image`)} placeholder="Image URL / Media Path" style={{ flex: 1 }} />
+                                    <label className="upload-btn" style={{ cursor: 'pointer', background: '#4f46e5', color: 'white', padding: '0.5rem 1rem', borderRadius: '4px', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
+                                        Upload
+                                        <input type="file" onChange={(e) => handleFileUpload(index, e)} style={{ display: 'none' }} />
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Skills</label>
+                                <input {...register(`content.items.${index}.tags`)} placeholder="Tech Stack / Tags (comma separated)" />
+                            </div>
+                            <div>
+                                <label>CTA Button Label</label>
+                                <input {...register(`content.items.${index}.cta`)} placeholder="e.g. More..." />
+                            </div>
                         </div>
                     )}
 
